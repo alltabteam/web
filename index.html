@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllTab Web</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Branding & Colors */
+            --bg-dark: #0f1014;
+            --bg-gradient: radial-gradient(circle at 50% 0%, #1e2028 0%, #0f1014 80%);
+            --accent-blue: #4dabf7;
+            --accent-glow: rgba(77, 171, 247, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a5;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-hover-border: rgba(77, 171, 247, 0.5);
+            --hover-lift: translateY(-8px) scale(1.02);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            font-family: 'Roboto', inter, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 80px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Subtle ambient glow animation behind everything */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(49, 130, 206, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse-glow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                opacity: 0.5;
+                transform: translateX(-50%) scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 100px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin: 0 0 16px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            /* Gradient Text */
+            background: linear-gradient(135deg, #ffffff 30%, #a5d8ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* Fallback for icon since text-fill removes color */
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Correct icon display in gradient text context */
+        h1 img {
+            width: 48px;
+            height: 48px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px 32px;
+            text-decoration: none;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        /* Staggered entry */
+        .card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.35s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+        /* Logic for centering the 3rd card */
+        .card:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+            justify-self: center;
+        }
+
+        .card:hover {
+            transform: var(--hover-lift);
+            border-color: var(--card-hover-border);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(77, 171, 247, 0.2);
+            /* Glow effect */
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .icon-circle svg {
+            width: 40px;
+            height: 40px;
+            color: var(--text-secondary);
+            transition: var(--transition-smooth);
+        }
+
+        .card:hover .icon-circle {
+            background: rgba(77, 171, 247, 0.1);
+            border-color: rgba(77, 171, 247, 0.3);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card:hover .icon-circle svg {
+            color: var(--accent-blue);
+            filter: drop-shadow(0 0 8px var(--accent-glow));
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .card:hover p {
+            color: #d1d1d8;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            margin-top: 120px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            animation: fadeInUp 1s ease-out 1.2s forwards;
+            opacity: 0;
+            /* Static style, no hover effect */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 id="hdr-title" style="display: flex; align-items: center; justify-content: center; gap: 12px;"><img
+                    src="favicon.png" alt="AllTab" style="width: 40px; height: 40px;">AllTab Web</h1>
+        </header>
+
+        <div class="grid">
+            <!-- Features Card -->
+            <a href="features.html" class="card">
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                </div>
+                <h2 id="card-features-title">Features</h2>
+                <p id="card-features-text">Explore what AllTab can do for your browsing productivity.</p>
+            </a>
+
+            <!-- Donate Card -->
+            <a href="donate.html" class="card">
+                <div class="icon-circle">
+                    <!-- Coffee Icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                        <line x1="6" y1="1" x2="6" y2="4"></line>
+                        <line x1="10" y1="1" x2="10" y2="4"></line>
+                        <line x1="14" y1="1" x2="14" y2="4"></line>
+                    </svg>
+                </div>
+                <h2 id="card-donate-title">Donate</h2>
+                <p id="card-donate-text">Support the team with a coffee and keep the updates coming.</p>
+            </a>
+
+            <!-- Sponsor Card -->
+            <a href="sponsor.html" class="card">
+                <div class="icon-circle">
+                    <!-- Handshake/User Icon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                </div>
+                <h2 id="card-sponsor-title">Sponsor</h2>
+                <p id="card-sponsor-text">Become an official sponsor and join the team.</p>
+            </a>
+        </div>
+
+        <footer>
+            <p>&copy; <span id="year"></span> AllTab</p>
+        </footer>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            const translations = {
+                en: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "Features",
+                    "card-features-text": "Explore what AllTab can do for your browsing productivity.",
+                    "card-donate-title": "Donate",
+                    "card-donate-text": "Support the team with a coffee and keep the updates coming.",
+                    "card-sponsor-title": "Sponsor",
+                    "card-sponsor-text": "Become an official sponsor and join the team."
+                },
+                es: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "Características",
+                    "card-features-text": "Explora lo que AllTab puede hacer por tu productividad.",
+                    "card-donate-title": "Donar",
+                    "card-donate-text": "Apoya al equipo con un café y mantén las actualizaciones.",
+                    "card-sponsor-title": "Patrocinar",
+                    "card-sponsor-text": "Conviértete en patrocinador oficial y únete al equipo."
+                },
+                fr: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "Fonctionnalités",
+                    "card-features-text": "Découvrez ce qu'AllTab peut faire pour votre productivité.",
+                    "card-donate-title": "Faire un don",
+                    "card-donate-text": "Soutenez l'équipe avec un café et gardez les mises à jour.",
+                    "card-sponsor-title": "Sponsoriser",
+                    "card-sponsor-text": "Devenez un sponsor officiel et rejoignez l'équipe."
+                },
+                pt: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "Funcionalidades",
+                    "card-features-text": "Explore o que o AllTab pode fazer pela sua produtividade.",
+                    "card-donate-title": "Doar",
+                    "card-donate-text": "Apoie a equipe com um café e mantenha as atualizações.",
+                    "card-sponsor-title": "Patrocinar",
+                    "card-sponsor-text": "Torne-se um patrocinador oficial e junte-se à equipe."
+                },
+                de: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "Funktionen",
+                    "card-features-text": "Entdecke, was AllTab für deine Browsing-Produktivität tun kann.",
+                    "card-donate-title": "Spenden",
+                    "card-donate-text": "Unterstütze das Team mit einem Kaffee und halte die Updates am Laufen.",
+                    "card-sponsor-title": "Sponsor werden",
+                    "card-sponsor-text": "Werde offizieller Sponsor und tritt dem Team bei."
+                },
+                zh: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "功能",
+                    "card-features-text": "探索 AllTab 如何提高您的浏览效率。",
+                    "card-donate-title": "捐赠",
+                    "card-donate-text": "请我们喝杯咖啡，支持团队继续更新。",
+                    "card-sponsor-title": "赞助",
+                    "card-sponsor-text": "成为官方赞助商并加入团队。"
+                },
+                ja: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "機能",
+                    "card-features-text": "AllTab がブラウジングの生産性をどう向上させるかをご覧ください。",
+                    "card-donate-title": "寄付",
+                    "card-donate-text": "コーヒーでチームをサポートし、更新を継続させましょう。",
+                    "card-sponsor-title": "スポンサー",
+                    "card-sponsor-text": "公式スポンサーになり、チームに参加しましょう。"
+                },
+                ru: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "Функции",
+                    "card-features-text": "Узнайте, как AllTab может повысить вашу продуктивность.",
+                    "card-donate-title": "Пожертвовать",
+                    "card-donate-text": "Поддержите команду чашкой кофе и помогите выпускать обновления.",
+                    "card-sponsor-title": "Спонсировать",
+                    "card-sponsor-text": "Станьте официальным спонсором и присоединяйтесь к команде."
+                },
+                hi: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "विशेषताएँ",
+                    "card-features-text": "जानें कि AllTab आपकी ब्राउज़िंग उत्पादकता के लिए क्या कर सकता है।",
+                    "card-donate-title": "दान करें",
+                    "card-donate-text": "एक कॉफी के साथ टीम का समर्थन करें और अपडेट जारी रखें।",
+                    "card-sponsor-title": "प्रायोजक बनें",
+                    "card-sponsor-text": "आधिकारिक प्रायोजक बनें और टीम में शामिल हों।"
+                },
+                ar: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "الميزات",
+                    "card-features-text": "اكتشف ما يمكن أن يفعله AllTab لإنتاجية التصفح لديك.",
+                    "card-donate-title": "تبرع",
+                    "card-donate-text": "ادعم الفريق بقهوة وحافظ على استمرار التحديثات.",
+                    "card-sponsor-title": "راعي",
+                    "card-sponsor-text": "كن راعياً رسمياً وانضم إلى الفريق.",
+                    "rtl": true
+                },
+                id: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "Fitur",
+                    "card-features-text": "Jelajahi apa yang dapat dilakukan AllTab untuk produktivitas browsing Anda.",
+                    "card-donate-title": "Donasi",
+                    "card-donate-text": "Dukung tim dengan kopi dan terus dapatkan pembaruan.",
+                    "card-sponsor-title": "Sponsor",
+                    "card-sponsor-text": "Jadilah sponsor resmi dan bergabung dengan tim."
+                },
+                bn: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "বৈশিষ্ট্য",
+                    "card-features-text": "আপনার ব্রাউজিং উৎপাদনশীলতার জন্য AllTab কী করতে পারে তা অন্বেষণ করুন।",
+                    "card-donate-title": "দান করুন",
+                    "card-donate-text": "একটি কফি দিয়ে দলটিকে সমর্থন করুন এবং আপডেটগুলি চালু রাখুন।",
+                    "card-sponsor-title": "স্পনসর",
+                    "card-sponsor-text": "একজন অফিসিয়াল স্পনসর হন এবং দলে যোগ দিন।"
+                },
+                ur: {
+                    "hdr-title": "AllTab Web",
+                    "card-features-title": "خصوصیات",
+                    "card-features-text": "دریافت کریں کہ AllTab آپ کی براؤزنگ کی پیداواری صلاحیت کے لیے کیا کر سکتا ہے۔",
+                    "card-donate-title": "عطیہ کریں",
+                    "card-donate-text": "کافی کے ساتھ ٹیم کی مدد کریں اور اپ ڈیٹس جاری رکھیں۔",
+                    "card-sponsor-title": "اسپانسر",
+                    "card-sponsor-text": "سرکاری اسپانسر بنیں اور ٹیم میں شامل ہوں۔",
+                    "rtl": true
+                }
+            };
+
+            function detectLanguage() {
+                const navLang = navigator.language || navigator.userLanguage;
+                const lang = navLang.split('-')[0];
+                return translations[lang] ? lang : 'en';
+            }
+
+            function applyTranslations() {
+                const lang = detectLanguage();
+                const texts = translations[lang];
+
+                if (texts) {
+                    // Header Title
+                    // We need to preserve the image inside the H1 when updating text
+                    const hdrTitle = document.getElementById('hdr-title');
+                    if (hdrTitle) {
+                        // Keep the img tag, replace the text node
+                        // The structure is: <img ...>Text
+                        // So we can set innerHTML to the img + new text
+                        // Or just update the last child if it's a text node.
+                        // Simplest is to reconstruct the innerHTML with the existing icon
+                        const icon = '<img src="favicon.png" alt="AllTab" style="width: 40px; height: 40px;">';
+                        // Since the translations for hdr-title might not include the HTML, we prepend the icon.
+                        // However, the current translation strings are just text "AllTab Web".
+                        hdrTitle.innerHTML = icon + texts['hdr-title'];
+                        // Note: This assumes the icon style is constant. 
+                        // Looking at original line 280: <img ... style="...">AllTab Web
+                        // Yes, this looks correct.
+                    }
+
+                    // Cards
+                    const ids = [
+                        'card-features-title', 'card-features-text',
+                        'card-donate-title', 'card-donate-text',
+                        'card-sponsor-title', 'card-sponsor-text'
+                    ];
+
+                    ids.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.textContent = texts[id];
+                    });
+
+                    // Direction
+                    document.documentElement.lang = lang;
+                    if (texts.rtl) {
+                        document.documentElement.dir = 'rtl';
+                    } else {
+                        document.documentElement.dir = 'ltr';
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', applyTranslations);
+        </script>
+    </div>
+</body>
+
+</html>
