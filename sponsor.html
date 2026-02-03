@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become a Sponsor</title>
+    <style>
+        :root {
+            --bg-app: #f5f7fa;
+            --bg-card: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            /* Reverting to Brand Blue instead of Pink */
+            --accent-color: #3182ce;
+            --accent-hover: #2b6cb0;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-radius: 10px;
+            --pulse-color: rgba(49, 130, 206, 0.4);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-app: #1c1c1e;
+                --bg-card: #2c2c2e;
+                --text-primary: #f2f2f5;
+                --text-secondary: #aeaeb2;
+                --accent-color: #0a84ff;
+                --accent-hover: #0077ed;
+                --border-color: #38383a;
+                --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                --pulse-color: rgba(10, 132, 255, 0.3);
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .icon-wrapper {
+            position: relative;
+            width: 80px;
+            height: 100px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sponsor-icon {
+            width: 64px;
+            height: 64px;
+            color: var(--accent-color);
+            z-index: 2;
+            /* Subtle float animation instead of heartbeat */
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Pulsing effect behind the icon */
+        .pulse-ring {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--pulse-color);
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0;
+            animation: pulse-ring 2s infinite ease-out;
+        }
+
+        .pulse-ring:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(2.0);
+                opacity: 0;
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, filter 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            background-color: var(--accent-hover);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        [dir="rtl"] {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon-wrapper">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring"></div>
+
+            <!-- Handshake Icon (from Lucide) -->
+            <svg class="sponsor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z">
+                </path>
+                <path
+                    d="M12 5.36 8.87 8.5a2.13 2.13 0 0 0 0 3h0a2.13 2.13 0 0 0 3 0l2.26-2.21a.8.8 0 0 1 1.09 0l2.69 2.56">
+                </path>
+                <path d="M18 15l-2-2"></path>
+                <path d="M15 18l-2-2"></path>
+            </svg>
+        </div>
+
+        <h1 id="title">Become a Sponsor</h1>
+
+        <a href="#" class="btn" id="btn">Join</a>
+
+        <div class="footer">
+            <p id="thanks">Proud to have you on the team. 🤝</p>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                title: "Become a Sponsor",
+
+                btn: "Join",
+                thanks: "Proud to have you on the team. 🤝"
+            },
+            es: {
+                title: "Conviértete en Patrocinador",
+
+                btn: "Unirse",
+                thanks: "Orgullosos de tenerte en el equipo. 🤝"
+            },
+            fr: {
+                title: "Devenir Sponsor",
+
+                btn: "Rejoindre",
+                thanks: "Fiers de vous avoir dans l'équipe. 🤝"
+            },
+            pt: {
+                title: "Seja um Patrocinador",
+
+                btn: "Juntar-se",
+                thanks: "Orgulhosos em tê-lo na equipe. 🤝"
+            },
+            de: {
+                title: "Werde Sponsor",
+
+                btn: "Beitreten",
+                thanks: "Stolz darauf, dich im Team zu haben. 🤝"
+            },
+            zh: {
+                title: "成为赞助者",
+
+                btn: "加入",
+                thanks: "很荣幸有你加入团队。 🤝"
+            },
+            ja: {
+                title: "スポンサーになる",
+
+                btn: "参加する",
+                thanks: "チームの一員として誇りに思います。 🤝"
+            },
+            ru: {
+                title: "Стать спонсором",
+
+                btn: "Присоединиться",
+                thanks: "Гордимся тем, что вы в команде. 🤝"
+            },
+            hi: {
+                title: "प्रायोजक बनें",
+
+                btn: "शामिल हों",
+                thanks: "आपको टीम में पाकर गर्व है। 🤝"
+            },
+            ar: {
+                title: "كن راعياً",
+
+                btn: "انضم",
+                thanks: "فخورون بوجودك في الفريق. 🤝",
+                rtl: true
+            },
+            id: {
+                title: "Jadi Sponsor",
+
+                btn: "Gabung",
+                thanks: "Bangga memiliki Anda di tim. 🤝"
+            },
+            bn: {
+                title: "স্পনসর হোন",
+
+                btn: "যোগ দিন",
+                thanks: "আপনাকে দলে পেয়ে গর্বিত। 🤝"
+            },
+            ur: {
+                title: "اسپانسر بنیں",
+
+                btn: "شامل ہوں",
+                thanks: "آپ کو ٹیم میں پا کر فخر ہے۔ 🤝",
+                rtl: true
+            }
+        };
+
+        function detectLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0].toLowerCase();
+            return translations[langCode] ? langCode : 'en';
+        }
+
+        function applyTranslations() {
+            const lang = detectLanguage();
+            const t = translations[lang];
+
+            document.getElementById('title').textContent = t.title;
+
+            document.getElementById('btn').textContent = t.btn;
+            document.getElementById('thanks').textContent = t.thanks;
+
+            document.documentElement.lang = lang;
+            if (t.rtl) {
+                document.documentElement.dir = 'rtl';
+            }
+        }
+
+        applyTranslations();
+    </script>
+</body>
+
+</html>
