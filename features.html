@@ -5,121 +5,377 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About AllTab</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #3498db;
-            --secondary: #2c3e50;
-            --accent: #e74c3c;
-            --bg: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-main: #333333;
-            --text-light: #666666;
-            --border: #ecf0f1;
+            /* Material Design 3 Inspired Tokens */
+            --bg-app: #f0f2f5;
+            --bg-card: #ffffff;
+            --text-primary: #1a1c1e;
+            --text-secondary: #42474e;
+            --accent-blue: #0061a4;
+            --accent-hover: #00477a;
+            --border-color: #e1e3e5;
+
+            /* Elevation Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+            --card-radius: 16px;
+            --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-app: #121418;
+                --bg-card: #1f2228;
+                --text-primary: #e2e2e6;
+                --text-secondary: #c4c7c5;
+                --accent-blue: #9ecaff;
+                --accent-hover: #d1e4ff;
+                --border-color: #444746;
+                --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+                --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+                --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+            }
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            font-family: 'Google Sans', 'Roboto', -apple-system, sans-serif;
             line-height: 1.6;
-            color: var(--text-main);
-            background-color: var(--bg);
+            color: var(--text-primary);
+            background-color: var(--bg-app);
             padding: 40px 20px;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 950px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: var(--card-bg);
-            padding: 50px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         header {
             text-align: center;
-            margin-bottom: 50px;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 30px;
-        }
-
-        h1 {
-            color: var(--secondary);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: -1px;
-        }
-
-        .tagline {
-            color: var(--text-light);
-            font-size: 1.2rem;
-            font-weight: 300;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .feature-block h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .feature-block ul {
-            list-style: none;
-        }
-
-        .feature-block li {
-            margin-bottom: 10px;
-            padding-left: 20px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.6s ease-out;
             position: relative;
         }
 
-        .feature-block li::before {
-            content: "-";
-            color: var(--primary);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            /* Removed background/border for cleaner look as requested */
         }
 
-        .highlight-box {
-            background: #f1f8ff;
-            border-left: 4px solid var(--primary);
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 0 8px 8px 0;
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition-base);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
         }
 
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            color: var(--text-light);
+        .nav-btn:hover {
+            color: var(--accent-blue);
+            transform: translateX(-3px);
+            border-color: var(--accent-blue);
+        }
+
+        .nav-placeholder {
+            width: 40px;
+            /* Matches nav-btn width for perfect centering */
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: row;
+                /* Keep row layout on mobile */
+            }
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-base);
             font-size: 0.9rem;
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-blue);
+            background: rgba(0, 97, 164, 0.08);
+            /* Transparent accent */
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .nav-link:hover {
+                background: rgba(158, 202, 255, 0.1);
+            }
+        }
+
+        h1 {
+            color: var(--text-primary);
+            font-size: 2.2rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .shortcut-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: var(--bg-app);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .keys {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        kbd {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 2px 0 var(--border-color);
+            padding: 4px 8px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .shortcut-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
 
         .badge {
             display: inline-block;
-            padding: 4px 10px;
-            background: var(--secondary);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 4px 12px;
+            background: var(--accent-blue);
+            color: var(--bg-app);
+            /* Contextual text color for badge */
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
             vertical-align: middle;
-            margin-left: 10px;
+            margin-left: 8px;
+        }
+
+        /* Dark mode adjustment for badge text */
+        @media (prefers-color-scheme: dark) {
+            .badge {
+                color: #00325b;
+                /* Dark text on light blue accent */
+            }
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            font-weight: 400;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Layout Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Material Cards */
+        .feature-block {
+            background: var(--bg-card);
+            border-radius: var(--card-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-base);
+            border: 1px solid var(--border-color);
+            position: relative;
+            z-index: 1;
+            /* Cascade Animation Setup */
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* Staggered Animations */
+        .feature-block:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .feature-block:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-block:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .feature-block:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-block:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .feature-block:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .feature-block:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            z-index: 2;
+            border-color: transparent;
+        }
+
+        /* Card Top Border Accent */
+        .feature-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            right: 20px;
+            height: 3px;
+            background: var(--accent-blue);
+            border-radius: 0 0 4px 4px;
+            opacity: 0;
+            transition: var(--transition-base);
+        }
+
+        .feature-block:hover::before {
+            opacity: 1;
+        }
+
+        .feature-block h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-block ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-block li {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Custom Icon for List Items */
+        .feature-block li::before {
+            content: "";
+            background-color: var(--accent-blue);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            mask-size: contain;
+            -webkit-mask-size: contain;
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            mask-position: center;
+            -webkit-mask-position: center;
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            left: 0;
+            top: 3px;
+        }
+
+        .feature-block li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(37, 99, 235, 0.02) 100%);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            padding: 25px;
+            border-radius: var(--card-radius);
+            margin-top: 40px;
+        }
+
+        .highlight-box h3 {
+            color: var(--accent-blue);
+            margin-top: 0;
+        }
+
+        .footer {
+            margin-top: 80px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            opacity: 0.8;
+            transition: var(--transition-base);
+        }
+
+        .footer:hover {
+            opacity: 1;
         }
     </style>
 </head>
@@ -127,161 +383,1296 @@
 <body>
     <div class="container">
         <header>
-            <h1>AllTab <span class="badge">v1.0.3</span></h1>
-            <p class="tagline">All your tabs, in a single place, under your control.</p>
+            <div class="header-top">
+                <a href="index.html" class="nav-btn" aria-label="Back to Home">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                </a>
+                <h1 id="hdr-alltab-container"><span id="hdr-alltab">AllTab</span> <span class="badge"
+                        id="badge-version">v1.0.3</span></h1>
+                <div class="nav-placeholder"></div> <!-- Spacer to ensure perfect centering -->
+            </div>
+            <p class="tagline" id="tagline">Manage all your tabs in a single place.</p>
         </header>
 
         <div class="grid">
             <div class="feature-block">
-                <h3>Smart Tab Management</h3>
+                <h3 id="hdr-management">Smart Tab Management</h3>
                 <ul>
-                    <li><strong>One-Click Save:</strong> Save all tabs in current window or all windows at once.</li>
-                    <li><strong>Flexible Saving:</strong> Save just this tab, tabs to the left, tabs to the right, or
+                    <li id="li-m-1"><strong>One-Click Save:</strong> Save all tabs in current window or all windows at
+                        once.</li>
+                    <li id="li-m-2"><strong>Flexible Saving:</strong> Save just this tab, tabs to the left, tabs to the
+                        right, or
                         everything except this tab.</li>
-                    <li><strong>The Great Reset:</strong> Click the dashboard logo to save and close all windows
+                    <li id="li-m-3"><strong>The Great Reset:</strong> Click the dashboard logo to save and close all
+                        windows
                         instantly, freeing maximum resources.</li>
-                    <li><strong>Context Menus:</strong> Right-click on any page to access quick save options.</li>
-                    <li><strong>Auto-Send to Dashboard:</strong> Automatically save and close inactive browser tabs
+                    <li id="li-m-4"><strong>Context Menus:</strong> Right-click on any page to access quick save
+                        options.</li>
+                    <li id="li-m-5"><strong>Auto-Send to Dashboard:</strong> Automatically save and close inactive
+                        browser tabs
                         after a configurable timeout.</li>
-                    <li><strong>Stay in Current Window:</strong> Option to remain in your current window after saving
+                    <li id="li-m-6"><strong>Stay in Current Window:</strong> Option to remain in your current window
+                        after saving
                         tabs.</li>
-                    <li><strong>Save Browser Tab Group:</strong> Save a Chrome native tab group directly along with its
+                    <li id="li-m-7"><strong>Save Browser Tab Group:</strong> Save a Chrome native tab group directly
+                        along with its
                         name and color.</li>
-                    <li><strong>Restore Entire Group:</strong> Open all tabs in a saved group at once with a single
+                    <li id="li-m-8"><strong>Restore Entire Group:</strong> Open all tabs in a saved group at once with a
+                        single
                         click.</li>
                 </ul>
             </div>
 
             <div class="feature-block">
-                <h3>Visual Organization</h3>
+                <h3 id="hdr-organization">Visual Organization</h3>
                 <ul>
-                    <li><strong>Automatic Grouping:</strong> Tabs saved together are automatically grouped by session.
+                    <li id="li-o-1"><strong>Automatic Grouping:</strong> Tabs saved together are automatically grouped
+                        by session.
                     </li>
-                    <li><strong>Group Renaming:</strong> Give custom names to your groups for easier identification.
+                    <li id="li-o-2"><strong>Group Renaming:</strong> Give custom names to your groups for easier
+                        identification.
                     </li>
-                    <li><strong>Drag and Drop:</strong> Reorder tabs and groups with full drag-and-drop support.</li>
-                    <li><strong>Tags:</strong> Assign tags to groups for visual categorization.</li>
-                    <li><strong>Search:</strong> Instantly search across all your saved tabs and group names.</li>
-                    <li><strong>Date Filter:</strong> Filter groups by the date they were created.</li>
-                    <li><strong>Tag Filter:</strong> Show only groups matching a specific tag.</li>
-                    <li><strong>Inter-Group Creation:</strong> Hover between groups and click the + button to insert a
+                    <li id="li-o-3"><strong>Drag and Drop:</strong> Reorder tabs and groups with full drag-and-drop
+                        support.</li>
+                    <li id="li-o-4"><strong>Tags:</strong> Assign tags to groups for visual categorization.</li>
+                    <li id="li-o-5"><strong>Search:</strong> Instantly search across all your saved tabs and group
+                        names.</li>
+                    <li id="li-o-6"><strong>Date Filter:</strong> Filter groups by the date they were created.</li>
+                    <li id="li-o-7"><strong>Tag Filter:</strong> Show only groups matching a specific tag.</li>
+                    <li id="li-o-8"><strong>Inter-Group Creation:</strong> Hover between groups and click the + button
+                        to insert a
                         new empty group at that position.</li>
-                    <li><strong>Scroll to Top:</strong> Quick button to return to the top of your tab list.</li>
+                    <li id="li-o-9"><strong>Scroll to Top:</strong> Quick button to return to the top of your tab list.
+                    </li>
                 </ul>
             </div>
 
             <div class="feature-block">
-                <h3>Performance and Efficiency</h3>
+                <h3 id="hdr-performance">Performance and Efficiency</h3>
                 <ul>
-                    <li><strong>RAM Monitor:</strong> Real-time display of System and Chrome memory usage in the popup.
+                    <li id="li-p-1"><strong>RAM Monitor:</strong> Real-time display of System and Chrome memory usage in
+                        the popup.
                     </li>
-                    <li><strong>Tab Hibernation:</strong> Suspend inactive tabs to free memory without closing them.
+                    <li id="li-p-2"><strong>Tab Hibernation:</strong> Suspend inactive tabs to free memory without
+                        closing them.
                     </li>
-                    <li><strong>Auto-Hibernate:</strong> Set timers (1 min to 2 hours) to automatically hibernate tabs.
+                    <li id="li-p-3"><strong>Auto-Hibernate:</strong> Set timers (1 min to 2 hours) to automatically
+                        hibernate tabs.
                     </li>
-                    <li><strong>Hibernation Whitelists:</strong> Exclude specific sites (like music players) from
+                    <li id="li-p-4"><strong>Hibernation Whitelists:</strong> Exclude specific sites (like music players)
+                        from
                         hibernation.</li>
-                    <li><strong>Hibernate from Context Menu:</strong> Hibernate this tab, tabs to the left, tabs to the
+                    <li id="li-p-5"><strong>Hibernate from Context Menu:</strong> Hibernate this tab, tabs to the left,
+                        tabs to the
                         right, all except this, or wake all hibernated tabs.</li>
-                    <li><strong>Sleeping Page Controls:</strong> Sleeping tabs can be set to wake on page reload or when
+                    <li id="li-p-6"><strong>Sleeping Page Controls:</strong> Sleeping tabs can be set to wake on page
+                        reload or when
                         you visit them.</li>
-                    <li><strong>Duplicate Cleanup:</strong> Automatically identify and remove duplicate tabs.</li>
-                    <li><strong>Automatic Tab Cleanup:</strong> Automatically remove old, unused tabs after a set period
+                    <li id="li-p-7"><strong>Duplicate Cleanup:</strong> Automatically identify and remove duplicate
+                        tabs.</li>
+                    <li id="li-p-8"><strong>Automatic Tab Cleanup:</strong> Automatically remove old, unused tabs after
+                        a set period
                         (days, weeks, or months).</li>
-                    <li><strong>Cleanup Exclusions:</strong> Whitelist domains to protect them from automatic cleanup.
+                    <li id="li-p-9"><strong>Cleanup Exclusions:</strong> Whitelist domains to protect them from
+                        automatic cleanup.
                     </li>
                 </ul>
             </div>
 
             <div class="feature-block">
-                <h3>Data Safety and Privacy</h3>
+                <h3 id="hdr-safety">Data Safety and Privacy</h3>
                 <ul>
-                    <li><strong>Offline First:</strong> All data stays on your device. No external analytics or
+                    <li id="li-s-1"><strong>Offline First:</strong> All data stays on your device. No external analytics
+                        or
                         tracking.</li>
-                    <li><strong>Trash Bin:</strong> Deleted items are kept safely for 30 days before permanent removal.
+                    <li id="li-s-2"><strong>Trash Bin:</strong> Deleted items are kept safely for 30 days before
+                        permanent removal.
                     </li>
-                    <li><strong>Undo System:</strong> Accidentally deleted a tab? You have a 20-second window to bring
+                    <li id="li-s-3"><strong>Undo System:</strong> Accidentally deleted a tab? You have a 20-second
+                        window to bring
                         it back.</li>
-                    <li><strong>Group Locking (Pin):</strong> Lock important groups to protect them from accidental
+                    <li id="li-s-4"><strong>Group Locking (Pin):</strong> Lock important groups to protect them from
+                        accidental
                         deletion or cleanup.</li>
-                    <li><strong>Backup (JSON):</strong> Export your entire collection to a JSON file for safekeeping.
+                    <li id="li-s-5"><strong>Backup (JSON):</strong> Export your entire collection to a JSON file for
+                        safekeeping.
                     </li>
-                    <li><strong>Restore (JSON):</strong> Import a JSON backup with options to merge or replace, handle
+                    <li id="li-s-6"><strong>Restore (JSON):</strong> Import a JSON backup with options to merge or
+                        replace, handle
                         duplicates, and select specific groups.</li>
                 </ul>
             </div>
 
             <div class="feature-block">
-                <h3>Import and Export Options</h3>
+                <h3 id="hdr-io">Import and Export Options</h3>
                 <ul>
-                    <li><strong>Import from JSON:</strong> Restore from a full backup file with drag-and-drop support.
+                    <li id="li-i-1"><strong>Import from JSON:</strong> Restore from a full backup file with
+                        drag-and-drop support.
                     </li>
-                    <li><strong>Import from Text:</strong> Paste a list of URLs to create a new group.</li>
-                    <li><strong>Import from Chrome Bookmarks:</strong> Pull in tabs from your existing Chrome bookmarks.
+                    <li id="li-i-2"><strong>Import from Text:</strong> Paste a list of URLs to create a new group.</li>
+                    <li id="li-i-3"><strong>Import from Chrome Bookmarks:</strong> Pull in tabs from your existing
+                        Chrome bookmarks.
                     </li>
-                    <li><strong>Export as JSON:</strong> Full backup for restoration.</li>
-                    <li><strong>Export as HTML:</strong> Generate a styled, shareable HTML file with theme options
+                    <li id="li-i-4"><strong>Export as JSON:</strong> Full backup for restoration.</li>
+                    <li id="li-i-5"><strong>Export as HTML:</strong> Generate a styled, shareable HTML file with theme
+                        options
                         (Light, Dark, Ocean, Forest, Sunset, Lavender, Midnight).</li>
-                    <li><strong>Export as HTML Lite:</strong> A minimal, lightweight HTML export.</li>
-                    <li><strong>Export as Text (URLs):</strong> Plain text list of all your saved URLs.</li>
-                    <li><strong>Export as CSV:</strong> Spreadsheet-compatible format for external tools.</li>
-                    <li><strong>Print / PDF:</strong> Print your tab list or save it as a PDF.</li>
+                    <li id="li-i-6"><strong>Export as HTML Lite:</strong> A minimal, lightweight HTML export.</li>
+                    <li id="li-i-7"><strong>Export as Text (URLs):</strong> Plain text list of all your saved URLs.</li>
+                    <li id="li-i-8"><strong>Export as CSV:</strong> Spreadsheet-compatible format for external tools.
+                    </li>
+                    <li id="li-i-9"><strong>Print / PDF:</strong> Print your tab list or save it as a PDF.</li>
                 </ul>
             </div>
 
             <div class="feature-block">
-                <h3>View Modes and Customization</h3>
+                <h3 id="hdr-view">View Modes and Customization</h3>
                 <ul>
-                    <li><strong>Standard Dashboard:</strong> The classic full-page view for managing everything.</li>
-                    <li><strong>Sidebar Mode:</strong> A compact side-panel view for quick access while you browse.</li>
-                    <li><strong>Wide Mode:</strong> An optimized layout for large monitors.</li>
-                    <li><strong>Multi-User Profiles:</strong> Create separate profiles to keep tab collections distinct.
+                    <li id="li-v-1"><strong>Standard Dashboard:</strong> The classic full-page view for managing
+                        everything.</li>
+                    <li id="li-v-2"><strong>Sidebar Mode:</strong> A compact side-panel view for quick access while you
+                        browse.</li>
+                    <li id="li-v-3"><strong>Wide Mode:</strong> An optimized layout for large monitors.</li>
+                    <li id="li-v-4"><strong>Multi-User Profiles:</strong> Create separate profiles to keep tab
+                        collections distinct.
                     </li>
-                    <li><strong>Theme Toggle:</strong> Switch between light and dark mode.</li>
-                    <li><strong>URL Display Options:</strong> Choose to show full URL, domain only, shortened, or
+                    <li id="li-v-5"><strong>Theme Toggle:</strong> Switch between light and dark mode.</li>
+                    <li id="li-v-6"><strong>URL Display Options:</strong> Choose to show full URL, domain only,
+                        shortened, or
                         hidden.</li>
-                    <li><strong>Pagination:</strong> Configure how many tabs to display per page.</li>
-                    <li><strong>13 Languages:</strong> English, Spanish, French, Portuguese, German, Chinese, Japanese,
+                    <li id="li-v-7"><strong>Pagination:</strong> Configure how many tabs to display per page.</li>
+                    <li id="li-v-8"><strong>13 Languages:</strong> English, Spanish, French, Portuguese, German,
+                        Chinese, Japanese,
                         Russian, Hindi, Arabic, Bengali, Urdu, Indonesian.</li>
-                    <li><strong>Open on Startup:</strong> Optionally open AllTab automatically when Chrome starts.</li>
-                    <li><strong>One-Click Save:</strong> Configure the extension icon to save immediately on click.</li>
-                    <li><strong>Delete on Open:</strong> Optionally remove a tab from the list when you restore it.</li>
-                    <li><strong>Switch to Tab:</strong> Optionally focus a restored tab immediately.</li>
-                    <li><strong>Open Sleeping:</strong> Optionally open restored tabs in a hibernated state to save
+                    <li id="li-v-9"><strong>Open on Startup:</strong> Optionally open AllTab automatically when Chrome
+                        starts.</li>
+                    <li id="li-v-10"><strong>One-Click Save:</strong> Configure the extension icon to save immediately
+                        on click.</li>
+                    <li id="li-v-11"><strong>Delete on Open:</strong> Optionally remove a tab from the list when you
+                        restore it.</li>
+                    <li id="li-v-12"><strong>Switch to Tab:</strong> Optionally focus a restored tab immediately.</li>
+                    <li id="li-v-13"><strong>Open Sleeping:</strong> Optionally open restored tabs in a hibernated state
+                        to save
                         memory.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3 id="hdr-shortcuts">Keyboard Shortcuts</h3>
+                <p id="txt-shortcuts" style="color: var(--text-secondary); margin-bottom: 20px;">Speed up your workflow
+                    with these shortcuts:</p>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="keys">
+                            <kbd>Alt</kbd><span>+</span><kbd>Shift</kbd><span>+</span><kbd>1</kbd>
+                        </div>
+                        <span id="sc-1" class="shortcut-desc">Open Dashboard</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="keys">
+                            <kbd>Alt</kbd><span>+</span><kbd>Shift</kbd><span>+</span><kbd>S</kbd>
+                        </div>
+                        <span id="sc-2" class="shortcut-desc">Save Current Window</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="keys">
+                            <kbd>Ctrl</kbd><span>+</span><kbd>Shift</kbd><span>+</span><kbd>2</kbd>
+                        </div>
+                        <span id="sc-3" class="shortcut-desc">Save Active Tab</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="keys">
+                            <kbd>Ctrl</kbd><span>+</span><kbd>Shift</kbd><span>+</span><kbd>Z</kbd>
+                        </div>
+                        <span id="sc-4" class="shortcut-desc">Hibernate Active Tab</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-block">
+                <h3 id="hdr-tools">Tools</h3>
+                <ul>
+                    <li id="li-t-1"><strong>Organizer (Drag and Drop):</strong> A dedicated mode for reordering your
+                        groups and tabs.
+                    </li>
+                    <li id="li-t-2"><strong>Delete Duplicates:</strong> Scan and remove duplicate tabs across all
+                        groups.
+                    </li>
+                    <li id="li-t-3"><strong>Cleanup Tabs:</strong> Configure automatic removal of old tabs.</li>
+                    <li id="li-t-4"><strong>Trash Bin:</strong> View and restore recently deleted items.</li>
+                    <li id="li-t-5"><strong>Help and Tips:</strong> Built-in guidance with detailed instructions on how
+                        to use each feature.</li>
+                    <li id="li-t-6"><strong>About Section:</strong> Information about the extension, version, and
+                        credits.
+                    </li>
                 </ul>
             </div>
         </div>
 
-        <div class="highlight-box">
-            <h3>Keyboard Shortcuts</h3>
-            <p>Speed up your workflow with these shortcuts:</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-                <span><code>Alt+Shift+1</code> Open Dashboard</span>
-                <span><code>Alt+Shift+S</code> Save Current Window</span>
-                <span><code>Ctrl+Shift+2</code> Save Active Tab</span>
-                <span><code>Ctrl+Shift+Z</code> Hibernate Active Tab</span>
-            </div>
-        </div>
-
-        <div class="highlight-box" style="margin-top: 20px;">
-            <h3>Tools</h3>
-            <ul style="list-style: none; padding: 0; margin-top: 10px;">
-                <li><strong>Organizer (Drag and Drop):</strong> A dedicated mode for reordering your groups and tabs.
-                </li>
-                <li><strong>Delete Duplicates:</strong> Scan and remove duplicate tabs across all groups.</li>
-                <li><strong>Cleanup Tabs:</strong> Configure automatic removal of old tabs.</li>
-                <li><strong>Trash Bin:</strong> View and restore recently deleted items.</li>
-                <li><strong>Help and Tips:</strong> Built-in guidance with detailed instructions on how to use each
-                    feature.</li>
-                <li><strong>About Section:</strong> Information about the extension, version, and credits.</li>
-            </ul>
-        </div>
-
-        <div class="footer">
-            <p>AllTab is designed to be the ultimate home for your browsing sessions.</p>
-        </div>
+        <p class="footer" id="txt-footer">AllTab is designed to be the ultimate home for your browsing sessions.</p>
     </div>
+
+    <script>
+        const TRANSLATIONS = {
+            en: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "Manage all your tabs in a single place.",
+                "hdr-management": "Smart Tab Management",
+                "li-m-1": "<strong>One-Click Save:</strong> Save all tabs in current window or all windows at once.",
+                "li-m-2": "<strong>Flexible Saving:</strong> Save just this tab, tabs to the left, tabs to the right, or everything except this tab.",
+                "li-m-3": "<strong>The Great Reset:</strong> Click the dashboard logo to save and close all windows instantly, freeing maximum resources.",
+                "li-m-4": "<strong>Context Menus:</strong> Right-click on any page to access quick save options.",
+                "li-m-5": "<strong>Auto-Send to Dashboard:</strong> Automatically save and close inactive browser tabs after a configurable timeout.",
+                "li-m-6": "<strong>Stay in Current Window:</strong> Option to remain in your current window after saving tabs.",
+                "li-m-7": "<strong>Save Browser Tab Group:</strong> Save a Chrome native tab group directly along with its name and color.",
+                "li-m-8": "<strong>Restore Entire Group:</strong> Open all tabs in a saved group at once with a single click.",
+                "hdr-organization": "Visual Organization",
+                "li-o-1": "<strong>Automatic Grouping:</strong> Tabs saved together are automatically grouped by session.",
+                "li-o-2": "<strong>Group Renaming:</strong> Give custom names to your groups for easier identification.",
+                "li-o-3": "<strong>Drag and Drop:</strong> Reorder tabs and groups with full drag-and-drop support.",
+                "li-o-4": "<strong>Tags:</strong> Assign tags to groups for visual categorization.",
+                "li-o-5": "<strong>Search:</strong> Instantly search across all your saved tabs and group names.",
+                "li-o-6": "<strong>Date Filter:</strong> Filter groups by the date they were created.",
+                "li-o-7": "<strong>Tag Filter:</strong> Show only groups matching a specific tag.",
+                "li-o-8": "<strong>Inter-Group Creation:</strong> Hover between groups and click the + button to insert a new empty group at that position.",
+                "li-o-9": "<strong>Scroll to Top:</strong> Quick button to return to the top of your tab list.",
+                "hdr-performance": "Performance and Efficiency",
+                "li-p-1": "<strong>RAM Monitor:</strong> Real-time display of System and Chrome memory usage in the popup.",
+                "li-p-2": "<strong>Tab Hibernation:</strong> Suspend inactive tabs to free memory without closing them.",
+                "li-p-3": "<strong>Auto-Hibernate:</strong> Set timers (1 min to 2 hours) to automatically hibernate tabs.",
+                "li-p-4": "<strong>Hibernation Whitelists:</strong> Exclude specific sites (like music players) from hibernation.",
+                "li-p-5": "<strong>Hibernate from Context Menu:</strong> Hibernate this tab, tabs to the left, tabs to the right, all except this, or wake all hibernated tabs.",
+                "li-p-6": "<strong>Sleeping Page Controls:</strong> Sleeping tabs can be set to wake on page reload or when you visit them.",
+                "li-p-7": "<strong>Duplicate Cleanup:</strong> Automatically identify and remove duplicate tabs.",
+                "li-p-8": "<strong>Automatic Tab Cleanup:</strong> Automatically remove old, unused tabs after a set period (days, weeks, or months).",
+                "li-p-9": "<strong>Cleanup Exclusions:</strong> Whitelist domains to protect them from automatic cleanup.",
+                "hdr-safety": "Data Safety and Privacy",
+                "li-s-1": "<strong>Offline First:</strong> All data stays on your device. No external analytics or tracking.",
+                "li-s-2": "<strong>Trash Bin:</strong> Deleted items are kept safely for 30 days before permanent removal.",
+                "li-s-3": "<strong>Undo System:</strong> Accidentally deleted a tab? You have a 20-second window to bring it back.",
+                "li-s-4": "<strong>Group Locking (Pin):</strong> Lock important groups to protect them from accidental deletion or cleanup.",
+                "li-s-5": "<strong>Backup (JSON):</strong> Export your entire collection to a JSON file for safekeeping.",
+                "li-s-6": "<strong>Restore (JSON):</strong> Import a JSON backup with options to merge or replace, handle duplicates, and select specific groups.",
+                "hdr-io": "Import and Export Options",
+                "li-i-1": "<strong>Import from JSON:</strong> Restore from a full backup file with drag-and-drop support.",
+                "li-i-2": "<strong>Import from Text:</strong> Paste a list of URLs to create a new group.",
+                "li-i-3": "<strong>Import from Chrome Bookmarks:</strong> Pull in tabs from your existing Chrome bookmarks.",
+                "li-i-4": "<strong>Export as JSON:</strong> Full backup for restoration.",
+                "li-i-5": "<strong>Export as HTML:</strong> Generate a styled, shareable HTML file with theme options (Light, Dark, Ocean, Forest, Sunset, Lavender, Midnight).",
+                "li-i-6": "<strong>Export as HTML Lite:</strong> A minimal, lightweight HTML export.",
+                "li-i-7": "<strong>Export as Text (URLs):</strong> Plain text list of all your saved URLs.",
+                "li-i-8": "<strong>Export as CSV:</strong> Spreadsheet-compatible format for external tools.",
+                "li-i-9": "<strong>Print / PDF:</strong> Print your tab list or save it as a PDF.",
+                "hdr-view": "View Modes and Customization",
+                "li-v-1": "<strong>Standard Dashboard:</strong> The classic full-page view for managing everything.",
+                "li-v-2": "<strong>Sidebar Mode:</strong> A compact side-panel view for quick access while you browse.",
+                "li-v-3": "<strong>Wide Mode:</strong> An optimized layout for large monitors.",
+                "li-v-4": "<strong>Multi-User Profiles:</strong> Create separate profiles to keep tab collections distinct.",
+                "li-v-5": "<strong>Theme Toggle:</strong> Switch between light and dark mode.",
+                "li-v-6": "<strong>URL Display Options:</strong> Choose to show full URL, domain only, shortened, or hidden.",
+                "li-v-7": "<strong>Pagination:</strong> Configure how many tabs to display per page.",
+                "li-v-8": "<strong>13 Languages:</strong> English, Spanish, French, Portuguese, German, Chinese, Japanese, Russian, Hindi, Arabic, Bengali, Urdu, Indonesian.",
+                "li-v-9": "<strong>Open on Startup:</strong> Optionally open AllTab automatically when Chrome starts.",
+                "li-v-10": "<strong>One-Click Save:</strong> Configure the extension icon to save immediately on click.",
+                "li-v-11": "<strong>Delete on Open:</strong> Optionally remove a tab from the list when you restore it.",
+                "li-v-12": "<strong>Switch to Tab:</strong> Optionally focus a restored tab immediately.",
+                "li-v-13": "<strong>Open Sleeping:</strong> Optionally open restored tabs in a hibernated state to save memory.",
+                "hdr-shortcuts": "Keyboard Shortcuts",
+                "txt-shortcuts": "Speed up your workflow with these shortcuts:",
+                "sc-1": "Open Dashboard",
+                "sc-2": "Save Current Window",
+                "sc-3": "Save Active Tab",
+                "sc-4": "Hibernate Active Tab",
+                "hdr-tools": "Tools",
+                "li-t-1": "<strong>Organizer (Drag and Drop):</strong> A dedicated mode for reordering your groups and tabs.",
+                "li-t-2": "<strong>Delete Duplicates:</strong> Scan and remove duplicate tabs across all groups.",
+                "li-t-3": "<strong>Cleanup Tabs:</strong> Configure automatic removal of old tabs.",
+                "li-t-4": "<strong>Trash Bin:</strong> View and restore recently deleted items.",
+                "li-t-5": "<strong>Help and Tips:</strong> Built-in guidance with detailed instructions on how to use each feature.",
+                "li-t-6": "<strong>About Section:</strong> Information about the extension, version, and credits.",
+                "txt-footer": "AllTab is designed to be the ultimate home for your browsing sessions."
+            },
+            es: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "Gestiona todas tus pestañas en un solo lugar.",
+                "hdr-management": "Gestión Inteligente de Pestañas",
+                "li-m-1": "<strong>Guardado en un Clic:</strong> Guarda todas las pestañas de la ventana actual o de todas a la vez.",
+                "li-m-2": "<strong>Guardado Flexible:</strong> Guarda solo esta pestaña, las de la izquierda, la derecha, o todo excepto esta.",
+                "li-m-3": "<strong>El Gran Reinicio:</strong> Haz clic en el logo del dashboard para guardar y cerrar todo al instante, liberando recursos.",
+                "li-m-4": "<strong>Menús Contextuales:</strong> Clic derecho en cualquier página para opciones rápidas de guardado.",
+                "li-m-5": "<strong>Auto-Envío al Dashboard:</strong> Guarda y cierra automáticamente pestañas inactivas tras un tiempo configurable.",
+                "li-m-6": "<strong>Permanecer en Ventana:</strong> Opción de quedarte en la ventana actual tras guardar pestañas.",
+                "li-m-7": "<strong>Guardar Grupos de Chrome:</strong> Guarda grupos nativos de Chrome con su nombre y color.",
+                "li-m-8": "<strong>Restaurar Grupo Completo:</strong> Abre todas las pestañas de un grupo guardado de un solo clic.",
+                "hdr-organization": "Organización Visual",
+                "li-o-1": "<strong>Agrupación Automática:</strong> Las pestañas guardadas juntas se agrupan automáticamente por sesión.",
+                "li-o-2": "<strong>Renombrado de Grupos:</strong> Pon nombres personalizados a tus grupos para identificarlos mejor.",
+                "li-o-3": "<strong>Arrastrar y Soltar:</strong> Reorganiza pestañas y grupos con soporte completo de drag-and-drop.",
+                "li-o-4": "<strong>Etiquetas (Tags):</strong> Asigna etiquetas a los grupos para categorización visual.",
+                "li-o-5": "<strong>Búsqueda:</strong> Busca instantáneamente entre todas tus pestañas y nombres de grupos.",
+                "li-o-6": "<strong>Filtro por Fecha:</strong> Filtra grupos por la fecha en que fueron creados.",
+                "li-o-7": "<strong>Filtro por Etiqueta:</strong> Muestra solo los grupos que coincidan con una etiqueta específica.",
+                "li-o-8": "<strong>Creación Inter-Grupo:</strong> Pasa el ratón entre grupos y haz clic en + para insertar un grupo vacío.",
+                "li-o-9": "<strong>Subir al Inicio:</strong> Botón rápido para volver arriba de tu lista de pestañas.",
+                "hdr-performance": "Rendimiento y Eficiencia",
+                "li-p-1": "<strong>Monitor de RAM:</strong> Visualización en tiempo real del uso de memoria de Chrome y del Sistema.",
+                "li-p-2": "<strong>Hibernación de Pestañas:</strong> Suspende pestañas inactivas para liberar RAM sin cerrarlas.",
+                "li-p-3": "<strong>Auto-Hibernación:</strong> Configura temporizadores (1 min a 2 horas) para hibernar automáticamente.",
+                "li-p-4": "<strong>Listas Blancas:</strong> Excluye sitios específicos (como reproductores de música) de la hibernación.",
+                "li-p-5": "<strong>Hibernar desde Menú:</strong> Hiberna esta pestaña, izquierda, derecha, resto, o despierta todas.",
+                "li-p-6": "<strong>Control de Pestañas Dormidas:</strong> Configura si despiertan al recargar o al visitarlas.",
+                "li-p-7": "<strong>Limpieza de Duplicados:</strong> Identifica y elimina automáticamente pestañas repetidas.",
+                "li-p-8": "<strong>Limpieza Automática:</strong> Elimina pestañas viejas sin usar tras un periodo (días, semanas o meses).",
+                "li-p-9": "<strong>Exclusiones de Limpieza:</strong> Lista de dominios protegidos del borrado automático.",
+                "hdr-safety": "Seguridad de Datos y Privacidad",
+                "li-s-1": "<strong>Offline First:</strong> Todos los datos se quedan en tu dispositivo. Sin analíticas ni rastreos externos.",
+                "li-s-2": "<strong>Papelera de Reciclaje:</strong> Los items borrados se guardan 30 días antes de eliminarse de forma permanente.",
+                "li-s-3": "<strong>Sistema deshacer (Undo):</strong> Si borras por accidente, tienes 20 segundos para recuperarlo.",
+                "li-s-4": "<strong>Bloqueo de Grupos (Pin):</strong> Bloquea grupos importantes para evitar borrados accidentales.",
+                "li-s-5": "<strong>Copia de Seguridad (JSON):</strong> Exporta toda tu colección a un archivo JSON.",
+                "li-s-6": "<strong>Restaurar (JSON):</strong> Importa backups JSON con opciones para combinar, reemplazar y elegir grupos.",
+                "hdr-io": "Opciones de Importación y Exportación",
+                "li-i-1": "<strong>Importar JSON:</strong> Restaura desde un backup con soporte de arrastrar y soltar.",
+                "li-i-2": "<strong>Importar Texto:</strong> Pega una lista de URLs para crear un nuevo grupo.",
+                "li-i-3": "<strong>Importar Marcadores:</strong> Trae pestañas desde tus marcadores de Chrome.",
+                "li-i-4": "<strong>Exportar JSON:</strong> Copia de seguridad completa para restauración.",
+                "li-i-5": "<strong>Exportar HTML:</strong> Genera un archivo HTML con temas (Claro, Oscuro, Océano, Bosque, etc.).",
+                "li-i-6": "<strong>Exportar HTML Lite:</strong> Una exportación HTML minimalista y ligera.",
+                "li-i-7": "<strong>Exportar Texto:</strong> Lista de URLs en texto plano.",
+                "li-i-8": "<strong>Exportar CSV:</strong> Formato compatible con hojas de cálculo para herramientas externas.",
+                "li-i-9": "<strong>Imprimir / PDF:</strong> Imprime tu lista de pestañas o guárdala como PDF.",
+                "hdr-view": "Modos de Vista y Personalización",
+                "li-v-1": "<strong>Dashboard Estándar:</strong> La vista clásica a pantalla completa para gestionarlo todo.",
+                "li-v-2": "<strong>Modo Sidebar:</strong> Panel lateral compacto para acceso rápido mientras navegas.",
+                "li-v-3": "<strong>Modo Ancho:</strong> Diseño optimizado para monitores grandes.",
+                "li-v-4": "<strong>Perfiles Multi-Usuario:</strong> Crea perfiles separados para colecciones distintas.",
+                "li-v-5": "<strong>Tema:</strong> Cambia entre modo claro y oscuro.",
+                "li-v-6": "<strong>Visualización de URLs:</strong> Elige entre ver URL completa, solo dominio, acortada u oculta.",
+                "li-v-7": "<strong>Paginación:</strong> Configura cuántos grupos mostrar por página.",
+                "li-v-8": "<strong>13 Idiomas:</strong> Inglés, Español, Francés, Portugués, Alemán, Chino, Japonés, Ruso, Hindi, Árabe, Bengalí, Urdu, Indonesio.",
+                "li-v-9": "<strong>Abrir al Iniciar:</strong> Abre AllTab automáticamente cuando arranca Chrome.",
+                "li-v-10": "<strong>Guardado un Clic:</strong> Configura el icono para guardar inmediatamente al pulsarlo.",
+                "li-v-11": "<strong>Borrar al Abrir:</strong> Elimina opcionalmente una pestaña de la lista al restaurarla.",
+                "li-v-12": "<strong>Foco al Abrir:</strong> Activa la pestaña restaurada inmediatamente.",
+                "li-v-13": "<strong>Abrir Dormidas:</strong> Abre pestañas restauradas en estado de hibernación para ahorrar memoria.",
+                "hdr-shortcuts": "Atajos de Teclado",
+                "txt-shortcuts": "Acelera tu flujo de trabajo con estos atajos:",
+                "sc-1": "Abrir Dashboard",
+                "sc-2": "Guardar Ventana Actual",
+                "sc-3": "Guardar Pestaña Activa",
+                "sc-4": "Hibernar Pestaña Activa",
+                "hdr-tools": "Herramientas",
+                "li-t-1": "<strong>Organizador (Drag and Drop):</strong> Modo dedicado para reordenar grupos y pestañas.",
+                "li-t-2": "<strong>Borrar Duplicados:</strong> Escanea y elimina pestañas repetidas en todos los grupos.",
+                "li-t-3": "<strong>Limpiar Pestañas:</strong> Configura el borrado automático de pestañas antiguas.",
+                "li-t-4": "<strong>Papelera:</strong> Mira y restaura items borrados recientemente.",
+                "li-t-5": "<strong>Ayuda y Tips:</strong> Guía integrada con instrucciones detalladas de cada función.",
+                "li-t-6": "<strong>Sección Acerca de:</strong> Información sobre la extensión, versión y créditos.",
+                "txt-footer": "AllTab está diseñado para ser el hogar definitivo para tus sesiones de navegación."
+            },
+            fr: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "Tous vos onglets, en un seul endroit, sous votre contrôle.",
+                "hdr-management": "Gestion Intelligente des Onglets",
+                "li-m-1": "<strong>Sauvegarde en un clic :</strong> Sauvegardez tous les onglets de la fenêtre actuelle ou de toutes les fenêtres à la fois.",
+                "li-m-2": "<strong>Sauvegarde flexible :</strong> Sauvegardez juste cet onglet, les onglets à gauche, à droite, ou tout sauf celui-ci.",
+                "li-m-3": "<strong>Le Grand Reset :</strong> Cliquez sur le logo du tableau de bord pour sauvegarder et fermer tout instantanément.",
+                "li-m-4": "<strong>Menus Contextuels :</strong> Clic droit sur n'importe quelle page pour accéder aux options rapides.",
+                "li-m-5": "<strong>Auto-Envoi Dashboard :</strong> Sauvegardez et fermez automatiquement les onglets inactifs.",
+                "li-m-6": "<strong>Rester dans la fenêtre :</strong> Option pour rester dans votre fenêtre actuelle après sauvegarde.",
+                "li-m-7": "<strong>Sauver Groupe Chrome :</strong> Sauvegardez un groupe d'onglets natif avec nom et couleur.",
+                "li-m-8": "<strong>Restaurer Groupe :</strong> Ouvrez tous les onglets d'un groupe sauvegardé en un clic.",
+                "hdr-organization": "Organisation Visuelle",
+                "li-o-1": "<strong>Regroupement Auto :</strong> Les onglets sauvegardés ensemble sont groupés par session.",
+                "li-o-2": "<strong>Renommer Groupes :</strong> Donnez des noms personnalisés à vos groupes.",
+                "li-o-3": "<strong>Glisser-Déposer :</strong> Réorganisez onglets et groupes facilement.",
+                "li-o-4": "<strong>Tags :</strong> Assignez des étiquettes aux groupes pour les catégoriser.",
+                "li-o-5": "<strong>Recherche :</strong> Cherchez instantanément dans vos onglets et groupes.",
+                "li-o-6": "<strong>Filtre par Date :</strong> Filtrez les groupes par date de création.",
+                "li-o-7": "<strong>Filtre par Tag :</strong> Montrez uniquement les groupes avec un tag spécifique.",
+                "li-o-8": "<strong>Création Inter-Groupe :</strong> Cliquez sur + entre les groupes pour en insérer un vide.",
+                "li-o-9": "<strong>Retour en haut :</strong> Bouton rapide pour revenir en haut de la liste.",
+                "hdr-performance": "Performance et Efficacité",
+                "li-p-1": "<strong>Moniteur de RAM :</strong> Affichage temps réel de la mémoire Système et Chrome.",
+                "li-p-2": "<strong>Hibernation :</strong> Suspendez les onglets inactifs pour libérer la RAM.",
+                "li-p-3": "<strong>Auto-Hibernation :</strong> Minuteurs (1 min à 2h) pour hiberner automatiquement.",
+                "li-p-4": "<strong>Liste Blanche :</strong> Excluez des sites spécifiques de l'hibernation.",
+                "li-p-5": "<strong>Menu Hibernation :</strong> Hibernez cet onglet, à gauche, à droite, ou réveillez tout.",
+                "li-p-6": "<strong>Contrôle Sommeil :</strong> Réveil au rechargement ou à la visite.",
+                "li-p-7": "<strong>Nettoyage Duplicats :</strong> Identifiez et supprimez les onglets en double.",
+                "li-p-8": "<strong>Nettoyage Auto :</strong> Supprimez les vieux onglets après une période donnée.",
+                "li-p-9": "<strong>Exclusions :</strong> Domaines protégés du nettoyage automatique.",
+                "hdr-safety": "Sécurité et Privacité",
+                "li-s-1": "<strong>Hors ligne d'abord :</strong> Tout reste sur votre appareil. Pas de suivi.",
+                "li-s-2": "<strong>Corbeille :</strong> Les items supprimés sont gardés 30 jours.",
+                "li-s-3": "<strong>Annuler (Undo) :</strong> 20 secondes pour récupérer un item supprimé.",
+                "li-s-4": "<strong>Verrouillage (Pin) :</strong> Protégez les groupes importants de la suppression.",
+                "li-s-5": "<strong>Backup (JSON) :</strong> Exportez votre collection en fichier JSON.",
+                "li-s-6": "<strong>Restaurer (JSON) :</strong> Importez avec fusion ou remplacement.",
+                "hdr-io": "Import / Export",
+                "li-i-1": "<strong>Import JSON :</strong> Restaurez un backup avec glisser-déposer.",
+                "li-i-2": "<strong>Import Texte :</strong> Collez une liste d'URLs pour créer un groupe.",
+                "li-i-3": "<strong>Import Chrome :</strong> Importez depuis vos favoris Chrome.",
+                "li-i-4": "<strong>Export JSON :</strong> Backup complet pour restauration.",
+                "li-i-5": "<strong>Export HTML :</strong> Fichier HTML stylisé avec thèmes.",
+                "li-i-6": "<strong>Export HTML Lite :</strong> Export léger et minimaliste.",
+                "li-i-7": "<strong>Export Texte :</strong> Liste d'URLs en texte brut.",
+                "li-i-8": "<strong>Export CSV :</strong> Format tableur pour outils externes.",
+                "li-i-9": "<strong>Impression / PDF :</strong> Imprimez ou sauvegardez en PDF.",
+                "hdr-view": "Vues et Personnalisation",
+                "li-v-1": "<strong>Dashboard Standard :</strong> La vue classique plein écran.",
+                "li-v-2": "<strong>Mode Sidebar :</strong> Vue latérale compacte.",
+                "li-v-3": "<strong>Mode Large :</strong> Optimisé pour grands écrans.",
+                "li-v-4": "<strong>Profils Multi-User :</strong> Collections d'onglets séparées.",
+                "li-v-5": "<strong>Thème :</strong> Mode clair ou sombre.",
+                "li-v-6": "<strong>Affichage URL :</strong> Complète, domaine, raccourcie ou cachée.",
+                "li-v-7": "<strong>Pagination :</strong> Nombre de groupes par page.",
+                "li-v-8": "<strong>13 Langues :</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID.",
+                "li-v-9": "<strong>Ouvrir au Démarrage :</strong> Lancer AllTab avec Chrome.",
+                "li-v-10": "<strong>Sauvegarde Rapide :</strong> Clic sur l'icône pour sauver.",
+                "li-v-11": "<strong>Supprimer à l'ouverture :</strong> Retier de la liste en restaurant.",
+                "li-v-12": "<strong>Focus à l'ouverture :</strong> Activer l'onglet restauré.",
+                "li-v-13": "<strong>Ouvrir Hiberne :</strong> Restaurer en état suspendu.",
+                "hdr-shortcuts": "Raccourcis Clavier",
+                "txt-shortcuts": "Accélérez votre flux de travail :",
+                "sc-1": "Ouvrir Dashboard",
+                "sc-2": "Sauver Fenêtre",
+                "sc-3": "Sauver Onglet Actif",
+                "sc-4": "Hiberner Onglet Actif",
+                "hdr-tools": "Outils",
+                "li-t-1": "<strong>Organiseur :</strong> Réordonnez groupes et onglets.",
+                "li-t-2": "<strong>Duplicats :</strong> Supprimez les doublons.",
+                "li-t-3": "<strong>Nettoyage :</strong> Suppression auto des vieux onglets.",
+                "li-t-4": "<strong>Corbeille :</strong> Restaurez les éléments supprimés.",
+                "li-t-5": "<strong>Aide :</strong> Guide détaillé des fonctionnalités.",
+                "li-t-6": "<strong>À Propos :</strong> Version et crédits.",
+                "txt-footer": "AllTab est conçu pour être la maison ultime pour vos sessions de navigation."
+            },
+            pt: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "Todas as suas abas, em um só lugar, sob seu controle.",
+                "hdr-management": "Gestão Inteligente de Abas",
+                "li-m-1": "<strong>Salvar com um clique:</strong> Salve todas as abas da janela atual ou de todas de uma vez.",
+                "li-m-2": "<strong>Salvamento Flexível:</strong> Salve apenas esta aba, as da esquerda, direita ou tudo, exceto esta.",
+                "li-m-3": "<strong>O Grande Reset:</strong> Clique no logo para salvar e fechar tudo instantaneamente.",
+                "li-m-4": "<strong>Menus de Contexto:</strong> Clique direito para opções rápidas de salvamento.",
+                "li-m-5": "<strong>Envio Auto ao Painel:</strong> Salve e feche abas inativas automaticamente.",
+                "li-m-6": "<strong>Manter na Janela:</strong> Opção para permanecer na janela atual após salvar.",
+                "li-m-7": "<strong>Salvar Grupo Chrome:</strong> Salve grupos nativos com nome e cor.",
+                "li-m-8": "<strong>Restaurar Grupo:</strong> Abra todas as abas de um grupo com um clique.",
+                "hdr-organization": "Organização Visual",
+                "li-o-1": "<strong>Agrupamento Auto:</strong> Abas salvas juntas são agrupadas por sessão.",
+                "li-o-2": "<strong>Renomear Grupos:</strong> Dê nomes personalizados aos seus grupos.",
+                "li-o-3": "<strong>Arrastar e Soltar:</strong> Reorganize abas e grupos facilmente.",
+                "li-o-4": "<strong>Tags:</strong> Atribua etiquetas para categorização visual.",
+                "li-o-5": "<strong>Busca:</strong> Pesquise instantaneamente em suas abas e grupos.",
+                "li-o-6": "<strong>Filtro por Data:</strong> Filtre grupos pela data de criação.",
+                "li-o-7": "<strong>Filtro por Tag:</strong> Mostre apenas grupos com uma tag específica.",
+                "li-o-8": "<strong>Criação Inter-Grupo:</strong> Insira um novo grupo vazio entre outros existentes.",
+                "li-o-9": "<strong>Ir ao Topo:</strong> Botão rápido para voltar ao início da lista.",
+                "hdr-performance": "Desempenho e Eficiência",
+                "li-p-1": "<strong>Monitor de RAM:</strong> Exibição em tempo real do uso de memória.",
+                "li-p-2": "<strong>Hibernação:</strong> Suspenda abas inativas para liberar memória.",
+                "li-p-3": "<strong>Auto-Hibernação:</strong> Temporizadores para hibernar abas automaticamente.",
+                "li-p-4": "<strong>Lista Branca:</strong> Exclua sites específicos da hibernação.",
+                "li-p-5": "<strong>Hibernar do Menu:</strong> Hiberne esta aba, esquerda, direita ou acorde todas.",
+                "li-p-6": "<strong>Controle de Sono:</strong> Acordar ao recarregar ou visitar.",
+                "li-p-7": "<strong>Limpeza de Duplicatas:</strong> Remova abas repetidas automaticamente.",
+                "li-p-8": "<strong>Limpeza Auto:</strong> Remova abas antigas após um período.",
+                "li-p-9": "<strong>Exclusões:</strong> Domínios protegidos da limpeza automática.",
+                "hdr-safety": "Segurança e Privacidade",
+                "li-s-1": "<strong>Offline First:</strong> Dados no seu dispositivo. Sem rastreamento.",
+                "li-s-2": "<strong>Lixeira:</strong> Itens excluídos são mantidos por 30 dias.",
+                "li-s-3": "<strong>Desfazer (Undo):</strong> 20 segundos para recuperar itens excluídos.",
+                "li-s-4": "<strong>Bloqueio (Pin):</strong> Proteja grupos importantes da exclusão.",
+                "li-s-5": "<strong>Backup (JSON):</strong> Exporte sua coleção para segurança.",
+                "li-s-6": "<strong>Restaurar (JSON):</strong> Importe com opções de mesclagem ou substituição.",
+                "hdr-io": "Importação e Exportação",
+                "li-i-1": "<strong>Importar JSON:</strong> Restaure backup com arrastar e soltar.",
+                "li-i-2": "<strong>Importar Texto:</strong> Cole URLs para criar um grupo.",
+                "li-i-3": "<strong>Importar Chrome:</strong> Puxe abas dos seus favoritos.",
+                "li-i-4": "<strong>Exportar JSON:</strong> Backup completo para restauração.",
+                "li-i-5": "<strong>Exportar HTML:</strong> Arquivo estilizado com temas.",
+                "li-i-6": "<strong>Exportar HTML Lite:</strong> Versão leve e minimalista.",
+                "li-i-7": "<strong>Exportar Texto:</strong> Lista de URLs simples.",
+                "li-i-8": "<strong>Exportar CSV:</strong> Formato para planilhas.",
+                "li-i-9": "<strong>Imprimir / PDF:</strong> Salve sua lista como PDF.",
+                "hdr-view": "Visualização e Personalização",
+                "li-v-1": "<strong>Dashboard Padrão:</strong> Visão clássica de página inteira.",
+                "li-v-2": "<strong>Modo Sidebar:</strong> Painel lateral compacto.",
+                "li-v-3": "<strong>Modo Amplo:</strong> Layout otimizado para monitores grandes.",
+                "li-v-4": "<strong>Perfis Multi-usuário:</strong> Coleções de abas separadas.",
+                "li-v-5": "<strong>Tema:</strong> Alternar entre claro e escuro.",
+                "li-v-6": "<strong>Exibição de URL:</strong> Completa, domínio, curta ou oculta.",
+                "li-v-7": "<strong>Paginação:</strong> Quantos grupos por página.",
+                "li-v-8": "<strong>13 Idiomas:</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID.",
+                "li-v-9": "<strong>Abrir ao Iniciar:</strong> Abrir AllTab com o Chrome.",
+                "li-v-10": "<strong>Salvar Rápido:</strong> Clique no ícone para salvar.",
+                "li-v-11": "<strong>Apagar ao Abrir:</strong> Remover da lista ao restaurar.",
+                "li-v-12": "<strong>Focar ao Abrir:</strong> Ativar a aba restaurada.",
+                "li-v-13": "<strong>Abrir Dormindo:</strong> Restaurar em estado hibernado.",
+                "hdr-shortcuts": "Atalhos de Teclado",
+                "txt-shortcuts": "Acelere seu fluxo de trabalho:",
+                "sc-1": "Abrir Dashboard",
+                "sc-2": "Salvar Janela",
+                "sc-3": "Salvar Aba Ativa",
+                "sc-4": "Hibernar Aba Ativa",
+                "hdr-tools": "Ferramentas",
+                "li-t-1": "<strong>Organizador:</strong> Reordene grupos e abas.",
+                "li-t-2": "<strong>Duplicatas:</strong> Remova abas repetidas.",
+                "li-t-3": "<strong>Limpeza:</strong> Remoção automática de abas antigas.",
+                "li-t-4": "<strong>Lixeira:</strong> Restaure itens excluídos.",
+                "li-t-5": "<strong>Ajuda:</strong> Guia detalhado de funções.",
+                "li-t-6": "<strong>Sobre:</strong> Versão e créditos.",
+                "txt-footer": "AllTab foi projetado para ser o lar definitivo para suas sessões de navegação."
+            },
+            de: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "Alle Ihre Tabs an einem Ort, unter Ihrer Kontrolle.",
+                "hdr-management": "Intelligente Tab-Verwaltung",
+                "li-m-1": "<strong>Ein-Klick-Speichern:</strong> Speichern Sie alle Tabs im aktuellen oder allen Fenstern.",
+                "li-m-2": "<strong>Flexibles Speichern:</strong> Nur diesen Tab, links, rechts oder alle außer diesem.",
+                "li-m-3": "<strong>Der Große Reset:</strong> Dashboard-Logo klicken, um alles sofort zu speichern und zu schließen.",
+                "li-m-4": "<strong>Kontextmenüs:</strong> Rechtsklick für schnelle Speicheroptionen.",
+                "li-m-5": "<strong>Auto-Senden:</strong> Inaktive Tabs automatisch speichern und schließen.",
+                "li-m-6": "<strong>Im Fenster bleiben:</strong> Option, nach dem Speichern im aktuellen Fenster zu bleiben.",
+                "li-m-7": "<strong>Chrome-Gruppe speichern:</strong> Native Tab-Gruppe mit Name und Farbe speichern.",
+                "li-m-8": "<strong>Gruppe wiederherstellen:</strong> Alle Tabs einer Gruppe mit einem Klick öffnen.",
+                "hdr-organization": "Visuelle Organisation",
+                "li-o-1": "<strong>Auto-Gruppierung:</strong> Zusammen gespeicherte Tabs werden gruppiert.",
+                "li-o-2": "<strong>Gruppen umbenennen:</strong> Geben Sie Gruppen eigene Namen.",
+                "li-o-3": "<strong>Drag & Drop:</strong> Tabs und Gruppen einfach neu ordnen.",
+                "li-o-4": "<strong>Tags:</strong> Gruppen zur Kategorisierung Tags zuweisen.",
+                "li-o-5": "<strong>Suche:</strong> Durchsuchen Sie sofort alle Tabs und Gruppen.",
+                "li-o-6": "<strong>Datumsfilter:</strong> Gruppen nach Erstellungsdatum filtern.",
+                "li-o-7": "<strong>Tag-Filter:</strong> Nur Gruppen mit bestimmtem Tag anzeigen.",
+                "li-o-8": "<strong>Zwischengruppen-Erstellung:</strong> Klicken Sie auf + zwischen Gruppen für eine neue.",
+                "li-o-9": "<strong>Nach oben:</strong> Schnell zurück zum Anfang der Liste.",
+                "hdr-performance": "Leistung und Effizienz",
+                "li-p-1": "<strong>RAM-Monitor:</strong> Echtzeitanzeige der Speichernutzung.",
+                "li-p-2": "<strong>Ruhezustand:</strong> Inaktive Tabs suspendieren, um RAM freizugeben.",
+                "li-p-3": "<strong>Auto-Ruhezustand:</strong> Timer zum automatischen Suspendieren von Tabs.",
+                "li-p-4": "<strong>Whitelist:</strong> Bestimmte Seiten vom Ruhezustand ausschließen.",
+                "li-p-5": "<strong>Kontext-Ruhe:</strong> Diesen Tab, links, rechts oder alle suspendieren.",
+                "li-p-6": "<strong>Schlaf-Kontrolle:</strong> Aufwachen bei Neuladen oder Besuch.",
+                "li-p-7": "<strong>Duplikate bereinigen:</strong> Doppelte Tabs automatisch entfernen.",
+                "li-p-8": "<strong>Auto-Bereinigung:</strong> Alte Tabs nach Zeitraum löschen.",
+                "li-p-9": "<strong>Ausnahmen:</strong> Vor Auto-Löschung geschützte Domains.",
+                "hdr-safety": "Sicherheit und Datenschutz",
+                "li-s-1": "<strong>Offline First:</strong> Daten bleiben auf Ihrem Gerät. Kein Tracking.",
+                "li-s-2": "<strong>Papierkorb:</strong> Gelöschte Elemente werden 30 Tage aufbewahrt.",
+                "li-s-3": "<strong>Rückgängig (Undo):</strong> 20 Sekunden zum Wiederherstellen.",
+                "li-s-4": "<strong>Sperren (Pin):</strong> Wichtige Gruppen vor Löschung schützen.",
+                "li-s-5": "<strong>Backup (JSON):</strong> Gesamte Sammlung exportieren.",
+                "li-s-6": "<strong>Wiederherstellen:</strong> Import mit Zusammenführen oder Ersetzen.",
+                "hdr-io": "Import und Export",
+                "li-i-1": "<strong>JSON Import:</strong> Backup per Drag & Drop wiederherstellen.",
+                "li-i-2": "<strong>Text Import:</strong> URL-Liste einfügen für neue Gruppe.",
+                "li-i-3": "<strong>Lesezeichen Import:</strong> Tabs aus Chrome-Lesezeichen holen.",
+                "li-i-4": "<strong>JSON Export:</strong> Vollständiges Backup.",
+                "li-i-5": "<strong>HTML Export:</strong> Gestylte Datei mit Themen.",
+                "li-i-6": "<strong>HTML Lite Export:</strong> Minimalistische Version.",
+                "li-i-7": "<strong>Text Export:</strong> Einfache URL-Liste.",
+                "li-i-8": "<strong>CSV Export:</strong> Format für Tabellenkalkulationen.",
+                "li-i-9": "<strong>Drucken / PDF:</strong> Liste drucken oder als PDF speichern.",
+                "hdr-view": "Ansicht und Anpassung",
+                "li-v-1": "<strong>Standard Dashboard:</strong> Klassische Vollbildansicht.",
+                "li-v-2": "<strong>Sidebar-Modus:</strong> Kompakte Seitenleiste.",
+                "li-v-3": "<strong>Breiter Modus:</strong> Optimiert für große Monitore.",
+                "li-v-4": "<strong>Multi-User Profile:</strong> Getrennte Tab-Sammlungen.",
+                "li-v-5": "<strong>Thema:</strong> Hell/Dunkel umschalten.",
+                "li-v-6": "<strong>URL-Anzeige:</strong> Voll, Domain, Kurz oder Versteckt.",
+                "li-v-7": "<strong>Paginierung:</strong> Gruppen pro Seite.",
+                "li-v-8": "<strong>13 Sprachen:</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID.",
+                "li-v-9": "<strong>Autostart:</strong> AllTab mit Chrome öffnen.",
+                "li-v-10": "<strong>Schnell-Speichern:</strong> Klick auf Icon speichert sofort.",
+                "li-v-11": "<strong>Löschen beim Öffnen:</strong> Aus Liste entfernen bei Wiederherstellung.",
+                "li-v-12": "<strong>Fokus beim Öffnen:</strong> Tab sofort aktivieren.",
+                "li-v-13": "<strong>Schlafend öffnen:</strong> Im Ruhezustand öffnen.",
+                "hdr-shortcuts": "Tastaturkürzel",
+                "txt-shortcuts": "Beschleunigen Sie Ihren Workflow:",
+                "sc-1": "Dashboard öffnen",
+                "sc-2": "Fenster speichern",
+                "sc-3": "Aktiven Tab speichern",
+                "sc-4": "Aktiven Tab suspendieren",
+                "hdr-tools": "Werkzeuge",
+                "li-t-1": "<strong>Organizer:</strong> Gruppen und Tabs neu ordnen.",
+                "li-t-2": "<strong>Duplikate:</strong> Doppelte Tabs entfernen.",
+                "li-t-3": "<strong>Bereinigung:</strong> Alte Tabs automatisch löschen.",
+                "li-t-4": "<strong>Papierkorb:</strong> Gelöschte Elemente wiederherstellen.",
+                "li-t-5": "<strong>Hilfe:</strong> Detaillierte Anleitung.",
+                "li-t-6": "<strong>Über:</strong> Version und Credits.",
+                "txt-footer": "AllTab ist als das ultimative Zuhause für Ihre Browsing-Sitzungen konzipiert."
+            },
+            zh: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "您的所有标签页，汇聚一处，尽在掌控。",
+                "hdr-management": "智能标签管理",
+                "li-m-1": "<strong>一键保存：</strong> 立即保存当前窗口或所有窗口中的所有标签页。",
+                "li-m-2": "<strong>灵活保存：</strong> 仅保存此标签页、左侧/右侧标签页，或除此以外的所有内容。",
+                "li-m-3": "<strong>大重置：</strong> 点击仪表板图标，瞬间保存并关闭所有窗口，释放最大资源。",
+                "li-m-4": "<strong>右键菜单：</strong> 在任何页面右键点击以访问快速保存选项。",
+                "li-m-5": "<strong>自动发送：</strong> 非活动标签页超时后自动保存并关闭。",
+                "li-m-6": "<strong>留在当前窗口：</strong> 保存标签页后留在当前窗口的选项。",
+                "li-m-7": "<strong>保存标签组：</strong> 直接保存带有名称和颜色的 Chrome 原生标签组。",
+                "li-m-8": "<strong>恢复整组：</strong> 一键打开已保存组中的所有标签页。",
+                "hdr-organization": "视觉组织",
+                "li-o-1": "<strong>自动分组：</strong> 一起保存的标签页会自动按会话分组。",
+                "li-o-2": "<strong>重命名组：</strong> 为您的组自定义名称以便识别。",
+                "li-o-3": "<strong>拖放：</strong> 支持完全拖放以重新排序标签页和组。",
+                "li-o-4": "<strong>标签：</strong> 为组分配标签以进行视觉分类。",
+                "li-o-5": "<strong>搜索：</strong> 即时搜索所有已保存的标签页和组名。",
+                "li-o-6": "<strong>日期过滤：</strong> 按创建日期过滤组。",
+                "li-o-7": "<strong>标签过滤：</strong> 仅显示匹配特定标签的组。",
+                "li-o-8": "<strong>组间创建：</strong> 在组之间点击 + 按钮插入一个新的空组。",
+                "li-o-9": "<strong>回到顶部：</strong> 快速按钮返回列表顶部。",
+                "hdr-performance": "性能与效率",
+                "li-p-1": "<strong>内存监视器：</strong> 实时显示系统和 Chrome 内存使用情况。",
+                "li-p-2": "<strong>休眠：</strong> 挂起非活动标签页以释放内存而不关闭它们。",
+                "li-p-3": "<strong>自动休眠：</strong> 设置定时器自动休眠标签页。",
+                "li-p-4": "<strong>白名单：</strong> 将特定网站（如音乐播放器）排除在休眠之外。",
+                "li-p-5": "<strong>从菜单休眠：</strong> 休眠此标签页、左侧/右侧、全部唤醒。",
+                "li-p-6": "<strong>睡眠控制：</strong> 设置睡眠标签页在重新加载或访问时唤醒。",
+                "li-p-7": "<strong>重复清理：</strong> 自动识别并删除重复的标签页。",
+                "li-p-8": "<strong>自动清理：</strong> 在一定时间后自动删除旧的未使用标签页。",
+                "li-p-9": "<strong>清理排除：</strong> 保护特定域名免受自动清理。",
+                "hdr-safety": "数据安全与隐私",
+                "li-s-1": "<strong>离线优先：</strong> 所有数据保留在设备上。无跟踪。",
+                "li-s-2": "<strong>回收站：</strong> 删除的项目保留 30 天。",
+                "li-s-3": "<strong>撤销系统：</strong> 误删后有 20 秒时间撤销。",
+                "li-s-4": "<strong>锁定 (Pin)：</strong> 锁定重要组以防意外删除。",
+                "li-s-5": "<strong>备份 (JSON)：</strong> 导出整个集合以策安全。",
+                "li-s-6": "<strong>恢复 (JSON)：</strong> 导入备份，支持合并或替换。",
+                "hdr-io": "导入与导出",
+                "li-i-1": "<strong>导入 JSON：</strong> 支持拖放恢复备份。",
+                "li-i-2": "<strong>导入文本：</strong> 粘贴 URL 列表创建新组。",
+                "li-i-3": "<strong>导入书签：</strong> 从 Chrome 书签拉取标签页。",
+                "li-i-4": "<strong>导出 JSON：</strong> 完整备份用于恢复。",
+                "li-i-5": "<strong>导出 HTML：</strong> 带主题的样式化 HTML 文件。",
+                "li-i-6": "<strong>导出 HTML Lite：</strong> 极简轻量版导出。",
+                "li-i-7": "<strong>导出文本：</strong> 纯文本 URL 列表。",
+                "li-i-8": "<strong>导出 CSV：</strong> 适用于电子表格的格式。",
+                "li-i-9": "<strong>打印 / PDF：</strong> 打印列表或保存为 PDF。",
+                "hdr-view": "视图与自定义",
+                "li-v-1": "<strong>标准仪表板：</strong> 经典的全页管理视图。",
+                "li-v-2": "<strong>侧边栏模式：</strong> 紧凑的侧面视图，方便浏览。",
+                "li-v-3": "<strong>宽模式：</strong> 针对大屏幕优化的布局。",
+                "li-v-4": "<strong>多用户配置：</strong> 创建单独的配置文件以区分集合。",
+                "li-v-5": "<strong>主题：</strong> 切换亮色和暗色模式。",
+                "li-v-6": "<strong>URL 显示：</strong> 完整、仅域名、缩短或隐藏。",
+                "li-v-7": "<strong>分页：</strong> 每页显示多少组。",
+                "li-v-8": "<strong>13 种语言：</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID。",
+                "li-v-9": "<strong>启动时打开：</strong> 随 Chrome 自动启动 AllTab。",
+                "li-v-10": "<strong>一键保存：</strong> 点击图标立即保存。",
+                "li-v-11": "<strong>打开时删除：</strong> 恢复时从列表中移除。",
+                "li-v-12": "<strong>打开时聚焦：</strong> 立即激活恢复的标签页。",
+                "li-v-13": "<strong>以睡眠状态打开：</strong> 以休眠状态恢复以节省内存。",
+                "hdr-shortcuts": "键盘快捷键",
+                "txt-shortcuts": "加速您的工作流：",
+                "sc-1": "打开仪表板",
+                "sc-2": "保存当前窗口",
+                "sc-3": "保存活动标签页",
+                "sc-4": "休眠活动标签页",
+                "hdr-tools": "工具",
+                "li-t-1": "<strong>组织器：</strong> 拖放重新排序组和标签页。",
+                "li-t-2": "<strong>去重：</strong> 扫描并删除重复标签页。",
+                "li-t-3": "<strong>清理：</strong> 自动删除旧标签页。",
+                "li-t-4": "<strong>回收站：</strong> 恢复最近删除的项目。",
+                "li-t-5": "<strong>帮助：</strong> 功能详细指南。",
+                "li-t-6": "<strong>关于：</strong> 版本和致谢。",
+                "txt-footer": "AllTab 旨在成为您浏览会话的终极归宿。"
+            },
+            ja: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "すべてのタブを、一箇所で、あなたの管理下に。",
+                "hdr-management": "スマートなタブ管理",
+                "li-m-1": "<strong>ワンクリック保存：</strong> 現在のウィンドウまたはすべてのウィンドウのすべてのタブを一度に保存します。",
+                "li-m-2": "<strong>柔軟な保存：</strong> このタブのみ、左側、右側、またはこれ以外のすべてを保存します。",
+                "li-m-3": "<strong>大リセット：</strong> ダッシュボードのロゴをクリックして、すべてのウィンドウを即座に保存して閉じます。",
+                "li-m-4": "<strong>コンテキストメニュー：</strong> 任意のページを右クリックして、クイック保存オプションにアクセスします。",
+                "li-m-5": "<strong>自動送信：</strong> 設定した時間が経過したら、非アクティブなタブを自動的に保存して閉じます。",
+                "li-m-6": "<strong>ウィンドウに残る：</strong> タブを保存した後、現在のウィンドウに残るオプション。",
+                "li-m-7": "<strong>Chromeグループ保存：</strong> Chromeネイティブのタブグループを名前と色とともに保存します。",
+                "li-m-8": "<strong>グループ復元：</strong> 保存されたグループ内のすべてのタブをワンクリックで開きます。",
+                "hdr-organization": "視覚的な整理",
+                "li-o-1": "<strong>自動グループ化：</strong> 一緒に保存されたタブはセッションごとに自動的にグループ化されます。",
+                "li-o-2": "<strong>グループ名の変更：</strong> グループにカスタム名を付けて識別しやすくします。",
+                "li-o-3": "<strong>ドラッグ＆ドロップ：</strong> タブとグループをドラッグ＆ドロップで並べ替えます。",
+                "li-o-4": "<strong>タグ：</strong> グループにタグを割り当てて視覚的に分類します。",
+                "li-o-5": "<strong>検索：</strong> すべての保存済みタブとグループ名を即座に検索します。",
+                "li-o-6": "<strong>日付フィルター：</strong> 作成日でグループをフィルタリングします。",
+                "li-o-7": "<strong>タグフィルター：</strong> 特定のタグに一致するグループのみを表示します。",
+                "li-o-8": "<strong>グループ間作成：</strong> グループ間の+ボタンをクリックして、新しい空のグループを挿入します。",
+                "li-o-9": "<strong>トップへ戻る：</strong> リストのトップに戻るためのクイックボタン。",
+                "hdr-performance": "パフォーマンスと効率",
+                "li-p-1": "<strong>RAMモニター：</strong> システムとブラウザのメモリ使用量をリアルタイムで表示します。",
+                "li-p-2": "<strong>ハイバネーション：</strong> 非アクティブなタブを一時停止して、閉じずにメモリを解放します。",
+                "li-p-3": "<strong>自動ハイバネーション：</strong> タイマーを設定してタブを自動的にハイバネートします。",
+                "li-p-4": "<strong>ホワイトリスト：</strong> 特定のサイト（音楽プレーヤーなど）をハイバネーションから除外します。",
+                "li-p-5": "<strong>メニューからハイバネート：</strong> このタブ、左側、右側、またはすべてをハイバネート/起動します。",
+                "li-p-6": "<strong>スリープ制御：</strong> 再読み込みまたはアクセス時にスリープタブを起動します。",
+                "li-p-7": "<strong>重複クリーンアップ：</strong> 重複するタブを自動的に識別して削除します。",
+                "li-p-8": "<strong>自動クリーンアップ：</strong> 一定期間後に古い未使用のタブを自動的に削除します。",
+                "li-p-9": "<strong>クリーンアップ除外：</strong> 自動削除から保護するドメインを指定します。",
+                "hdr-safety": "データ安全性とプライバシー",
+                "li-s-1": "<strong>オフライン第一：</strong> すべてのデータはデバイスに保存されます。外部追跡はありません。",
+                "li-s-2": "<strong>ゴミ箱：</strong> 削除されたアイテムは完全に削除されるまで30日間保存されます。",
+                "li-s-3": "<strong>元に戻す (Undo)：</strong> 誤って削除した場合、20秒以内に元に戻せます。",
+                "li-s-4": "<strong>グループロック (Pin)：</strong> 重要なグループを誤って削除しないようにロックします。",
+                "li-s-5": "<strong>バックアップ (JSON)：</strong> コレクション全体をJSONファイルにエクスポートして安全に保管します。",
+                "li-s-6": "<strong>復元 (JSON)：</strong> マージまたは置換オプションを使用してバックアップをインポートします。",
+                "hdr-io": "インポートとエクスポート",
+                "li-i-1": "<strong>JSONインポート：</strong> ドラッグ＆ドロップでバックアップから復元します。",
+                "li-i-2": "<strong>テキストインポート：</strong> URLリストを貼り付けて新しいグループを作成します。",
+                "li-i-3": "<strong>ブックマークインポート：</strong> Chromeブックマークからタブを取り込みます。",
+                "li-i-4": "<strong>JSONエクスポート：</strong> 復元用の完全なバックアップ。",
+                "li-i-5": "<strong>HTMLエクスポート：</strong> テーマ付きのスタイル化されたHTMLファイル。",
+                "li-i-6": "<strong>HTML Liteエクスポート：</strong> 軽量でミニマルなHTMLエクスポート。",
+                "li-i-7": "<strong>テキストエクスポート：</strong> すべてのURLのプレーンテキストリスト。",
+                "li-i-8": "<strong>CSVエクスポート：</strong> 外部ツール用のスプレッドシート互換形式。",
+                "li-i-9": "<strong>印刷 / PDF：</strong> タブリストを印刷するか、PDFとして保存します。",
+                "hdr-view": "表示モードとカスタマイズ",
+                "li-v-1": "<strong>標準ダッシュボード：</strong> すべてを管理するためのクラシックな全画面表示。",
+                "li-v-2": "<strong>サイドバーモード：</strong> ブラウジング中に素早くアクセスできるコンパクトなサイドパネル。",
+                "li-v-3": "<strong>ワイドモード：</strong> 大型モニター向けに最適化されたレイアウト。",
+                "li-v-4": "<strong>マルチユーザープロファイル：</strong> タブコレクションを区別するための個別のプロファイルを作成します。",
+                "li-v-5": "<strong>テーマ：</strong> ライトモードとダークモードを切り替えます。",
+                "li-v-6": "<strong>URL表示：</strong> 完全、ドメインのみ、短縮、または非表示を選択します。",
+                "li-v-7": "<strong>ページネーション：</strong> ページごとの表示グループ数を設定します。",
+                "li-v-8": "<strong>13言語：</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID。",
+                "li-v-9": "<strong>起動時に開く：</strong> Chrome起動時にAllTabを自動的に開きます。",
+                "li-v-10": "<strong>ワンクリック保存：</strong> アイコンをクリックしてすぐに保存するように設定します。",
+                "li-v-11": "<strong>開くときに削除：</strong> 復元時にリストからタブを削除します。",
+                "li-v-12": "<strong>開くときにフォーカス：</strong> 復元されたタブをすぐにアクティブにします。",
+                "li-v-13": "<strong>スリープ状態で開く：</strong> 復元されたタブをハイバネート状態で開いてメモリを節約します。",
+                "hdr-shortcuts": "キーボードショートカット",
+                "txt-shortcuts": "ショートカットで作業を高速化：",
+                "sc-1": "ダッシュボードを開く",
+                "sc-2": "現在のウィンドウを保存",
+                "sc-3": "アクティブなタブを保存",
+                "sc-4": "アクティブなタブをハイバネート",
+                "hdr-tools": "ツール",
+                "li-t-1": "<strong>オーガナイザー：</strong> グループとタブを並べ替えるための専用モード。",
+                "li-t-2": "<strong>重複削除：</strong> すべてのグループ内の重複タブをスキャンして削除します。",
+                "li-t-3": "<strong>タブクリーンアップ：</strong> 古いタブの自動削除を設定します。",
+                "li-t-4": "<strong>ゴミ箱：</strong> 最近削除されたアイテムを表示して復元します。",
+                "li-t-5": "<strong>ヘルプとヒント：</strong> 各機能の使用方法に関する詳細なガイド。",
+                "li-t-6": "<strong>アバウト：</strong> 拡張機能、バージョン、クレジットに関する情報。",
+                "txt-footer": "AllTabは、ブラウジングセッションのための究極のホームとなるよう設計されています。"
+            },
+            ru: {
+                "hdr-alltab": "AllTab",
+                "tagline": "Все ваши вкладки в одном месте под вашим контролем.",
+                "hdr-management": "Умное управление вкладками",
+                "li-m-1": "<strong>Сохранение в один клик:</strong> Сохраните все вкладки в текущем или во всех окнах сразу.",
+                "li-m-2": "<strong>Гибкое сохранение:</strong> Сохраните только эту вкладку, вкладки слева, справа или всё, кроме этой.",
+                "li-m-3": "<strong>Полный сброс:</strong> Нажмите на логотип панели, чтобы сохранить и закрыть всё мгновенно.",
+                "li-m-4": "<strong>Контекстное меню:</strong> Правый клик для быстрого сохранения.",
+                "li-m-5": "<strong>Авто-отправка:</strong> Автоматически сохранять и закрывать неактивные вкладки.",
+                "li-m-6": "<strong>Остаться в окне:</strong> Опция остаться в текущем окне после сохранения.",
+                "li-m-7": "<strong>Сохранить группу Chrome:</strong> Сохраните нативную группу вкладок с именем и цветом.",
+                "li-m-8": "<strong>Восстановить группу:</strong> Откройте все вкладки группы одним кликом.",
+                "hdr-organization": "Визуальная организация",
+                "li-o-1": "<strong>Авто-группировка:</strong> Сохраненные вместе вкладки группируются по сессии.",
+                "li-o-2": "<strong>Переименование:</strong> Дайте группам свои имена.",
+                "li-o-3": "<strong>Drag and Drop:</strong> Перетаскивайте вкладки и группы.",
+                "li-o-4": "<strong>Теги:</strong> Назначайте теги для категорий.",
+                "li-o-5": "<strong>Поиск:</strong> Мгновенный поиск по вкладкам и группам.",
+                "li-o-6": "<strong>Фильтр по дате:</strong> Фильтр групп по дате создания.",
+                "li-o-7": "<strong>Фильтр по тегу:</strong> Показать группы только с определенным тегом.",
+                "li-o-8": "<strong>Создание между групп:</strong> Нажмите +, чтобы вставить новую пустую группу.",
+                "li-o-9": "<strong>Вверх:</strong> Кнопка возврата к началу списка.",
+                "hdr-performance": "Производительность",
+                "li-p-1": "<strong>Монитор RAM:</strong> Отображение памяти Системы и Chrome в реальном времени.",
+                "li-p-2": "<strong>Гибернация:</strong> Приостановка неактивных вкладок для освобождения памяти.",
+                "li-p-3": "<strong>Авто-гибернация:</strong> Таймеры для автоматической гибернации.",
+                "li-p-4": "<strong>Белый список:</strong> Исключение сайтов из гибернации.",
+                "li-p-5": "<strong>Гибернация из меню:</strong> Гибернация этой, слева, справа или пробуждение всех.",
+                "li-p-6": "<strong>Контроль сна:</strong> Пробуждение при перезагрузке или посещении.",
+                "li-p-7": "<strong>Удаление дубликатов:</strong> Автоматическое удаление повторяющихся вкладок.",
+                "li-p-8": "<strong>Авто-очистка:</strong> Удаление старых вкладок через заданный период.",
+                "li-p-9": "<strong>Исключения очистки:</strong> Домены, защищенные от авто-удаления.",
+                "hdr-safety": "Безопасность данных",
+                "li-s-1": "<strong>Offline First:</strong> Все данные на устройстве. Никакого слежения.",
+                "li-s-2": "<strong>Корзина:</strong> Удаленные элементы хранятся 30 дней.",
+                "li-s-3": "<strong>Отмена (Undo):</strong> 20 секунд на восстановление удаленного.",
+                "li-s-4": "<strong>Закрепление (Pin):</strong> Защита важных групп от удаления.",
+                "li-s-5": "<strong>Бэкап (JSON):</strong> Экспорт всей коллекции в файл.",
+                "li-s-6": "<strong>Восстановление:</strong> Импорт бэкапа с объединением или заменой.",
+                "hdr-io": "Импорт и Экспорт",
+                "li-i-1": "<strong>Импорт JSON:</strong> Восстановление перетаскиванием.",
+                "li-i-2": "<strong>Импорт текста:</strong> Вставка списка URL для новой группы.",
+                "li-i-3": "<strong>Импорт закладок:</strong> Импорт из закладок Chrome.",
+                "li-i-4": "<strong>Экспорт JSON:</strong> Полный бэкап.",
+                "li-i-5": "<strong>Экспорт HTML:</strong> Стилизованный файл с темами.",
+                "li-i-6": "<strong>Экспорт HTML Lite:</strong> Легкая версия.",
+                "li-i-7": "<strong>Экспорт текста:</strong> Простой список URL.",
+                "li-i-8": "<strong>Экспорт CSV:</strong> Формат для таблиц.",
+                "li-i-9": "<strong>Печать / PDF:</strong> Печать списка или сохранение в PDF.",
+                "hdr-view": "Вид и Настройки",
+                "li-v-1": "<strong>Стандартный:</strong> Классический полноэкранный вид.",
+                "li-v-2": "<strong>Боковая панель:</strong> Компактный вид сбоку.",
+                "li-v-3": "<strong>Широкий режим:</strong> Для больших мониторов.",
+                "li-v-4": "<strong>Профили:</strong> Раздельные коллекции вкладок.",
+                "li-v-5": "<strong>Тема:</strong> Светлая и темная тема.",
+                "li-v-6": "<strong>Вид URL:</strong> Полный, домен, короткий или скрыт.",
+                "li-v-7": "<strong>Пагинация:</strong> Групп на страницу.",
+                "li-v-8": "<strong>13 языков:</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID.",
+                "li-v-9": "<strong>Запуск с Chrome:</strong> Открывать AllTab при старте.",
+                "li-v-10": "<strong>Быстрое сохранение:</strong> Клик по иконке сохраняет сразу.",
+                "li-v-11": "<strong>Удалять при открытии:</strong> Убирать из списка при восстановлении.",
+                "li-v-12": "<strong>Фокус при открытии:</strong> Сразу переходить на вкладку.",
+                "li-v-13": "<strong>Открывать спящими:</strong> Восстанавливать в режиме гибернации.",
+                "hdr-shortcuts": "Горячие клавиши",
+                "txt-shortcuts": "Ускорьте свою работу:",
+                "sc-1": "Открыть Dashboard",
+                "sc-2": "Сохранить окно",
+                "sc-3": "Сохранить вкладку",
+                "sc-4": "Гибернировать вкладку",
+                "hdr-tools": "Инструменты",
+                "li-t-1": "<strong>Органайзер:</strong> Сортировка групп и вкладок.",
+                "li-t-2": "<strong>Дубликаты:</strong> Удаление повторов.",
+                "li-t-3": "<strong>Очистка:</strong> Авто-удаление старых вкладок.",
+                "li-t-4": "<strong>Корзина:</strong> Восстановление удаленного.",
+                "li-t-5": "<strong>Помощь:</strong> Гид по функциям.",
+                "li-t-6": "<strong>О программе:</strong> Версия и кредиты.",
+                "txt-footer": "AllTab создан, чтобы стать идеальным домом для ваших сессий в браузере."
+            },
+            hi: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "आपकी सभी टैब, एक ही स्थान पर, आपके नियंत्रण में।",
+                "hdr-management": "स्मार्ट टैब प्रबंधन",
+                "li-m-1": "<strong>वन-क्लिक सेव:</strong> वर्तमान विंडो या सभी विंडो के सभी टैब एक बार में सहेजें।",
+                "li-m-2": "<strong>लचीला सेविंग:</strong> केवल इस टैब, बाईं ओर, दाईं ओर, या इसे छोड़कर सब कुछ सहेजें।",
+                "li-m-3": "<strong>ग्रेट रीसेट:</strong> तुरंत सब कुछ सहेजने और बंद करने के लिए डैशबोर्ड लोगो पर क्लिक करें।",
+                "li-m-4": "<strong>संदर्भ मेनू:</strong> त्वरित सेविंग विकल्पों के लिए किसी भी पृष्ठ पर राइट-क्लिक करें।",
+                "li-m-5": "<strong>ऑटो-सेंड:</strong> निष्क्रिय टैब को स्वचालित रूप से सहेजें और बंद करें।",
+                "li-m-6": "<strong>विंडो में रहें:</strong> सहेजने के बाद अपनी वर्तमान विंडो में रहने का विकल्प।",
+                "li-m-7": "<strong>क्रोम समूह सहेजें:</strong> नाम और रंग के साथ क्रोम टैब समूह को सीधे सहेजें।",
+                "li-m-8": "<strong>समूह पुनर्स्थापित करें:</strong> एक क्लिक में सहेजे गए समूह के सभी टैब खोलें।",
+                "hdr-organization": "दृश्य संगठन",
+                "li-o-1": "<strong>स्वचालित समूहन:</strong> एक साथ सहेजे गए टैब स्वचालित रूप से समूहीकृत होते हैं।",
+                "li-o-2": "<strong>समूह का नाम बदलें:</strong> आसान पहचान के लिए अपने समूहों को कस्टम नाम दें।",
+                "li-o-3": "<strong>ड्रैग और ड्रॉप:</strong> पूर्ण ड्रैग-एंड-ड्रॉप समर्थन के साथ टैब और समूहों को पुनर्व्यवस्थित करें।",
+                "li-o-4": "<strong>टैग:</strong> समूहों को श्रेणीबद्ध करने के लिए टैग असाइन करें।",
+                "li-o-5": "<strong>खोज:</strong> अपने सभी सहेजे गए टैब और समूह नामों में तुरंत खोजें।",
+                "li-o-6": "<strong>दिनांक फ़िल्टर:</strong> समूहों को उनकी निर्माण तिथि के अनुसार फ़िल्टर करें।",
+                "li-o-7": "<strong>टैग फ़िल्टर:</strong> केवल विशिष्ट टैग वाले समूह दिखाएं।",
+                "li-o-8": "<strong>समूह निर्माण:</strong> एक नया खाली समूह डालने के लिए समूहों के बीच + पर क्लिक करें।",
+                "li-o-9": "<strong>शीर्ष पर जाएं:</strong> अपनी टैब सूची के शीर्ष पर लौटने के लिए त्वरित बटन।",
+                "hdr-performance": "प्रदर्शन और दक्षता",
+                "li-p-1": "<strong>RAM मॉनिटर:</strong> वास्तविक समय में सिस्टम और क्रोम मेमोरी उपयोग।",
+                "li-p-2": "<strong>हाइबरनेशन:</strong> मेमोरी खाली करने के लिए निष्क्रिय टैब को निलंबित करें।",
+                "li-p-3": "<strong>ऑटो-हाइबरनेशन:</strong> टैब को स्वचालित रूप से हाइबरनेट करने के लिए टाइमर सेट करें।",
+                "li-p-4": "<strong>व्हाइटलिस्ट:</strong> विशिष्ट साइटों को हाइबरनेशन से बाहर रखें।",
+                "li-p-5": "<strong>मेनू से हाइबरनेट:</strong> इस टैब, बाएं, दाएं या सभी को हाइबरनेट/जगाएं।",
+                "li-p-6": "<strong>स्लीप कंट्रोल:</strong> रीलोड या विज़िट करने पर सोते हुए टैब को जगाएं।",
+                "li-p-7": "<strong>डुप्लिकेट सफाई:</strong> डुप्लिकेट टैब को स्वचालित रूप से पहचानें और हटाएं।",
+                "li-p-8": "<strong>स्वचालित सफाई:</strong> एक निर्धारित अवधि के बाद पुराने टैब हटा दें।",
+                "li-p-9": "<strong>बहिष्करण:</strong> स्वचालित सफाई से डोमेन को सुरक्षित रखें।",
+                "hdr-safety": "डेटा सुरक्षा और गोपनीयता",
+                "li-s-1": "<strong>ऑफ़लाइन पहले:</strong> सारा डेटा आपके डिवाइस पर रहता है। कोई ट्रैकिंग नहीं।",
+                "li-s-2": "<strong>कचरा पेटी:</strong> हटाए गए आइटम 30 दिनों के लिए सुरक्षित रखे जाते हैं।",
+                "li-s-3": "<strong>पूर्ववत (Undo):</strong> 20 सेकंड के भीतर हटाए गए आइटम को वापस लाएं।",
+                "li-s-4": "<strong>पिन (Pin):</strong> महत्वपूर्ण समूहों को आकस्मिक विलोपन से सुरक्षित रखें।",
+                "li-s-5": "<strong>बैकअप (JSON):</strong> अपने पूरे संग्रह को JSON फ़ाइल में निर्यात करें।",
+                "li-s-6": "<strong>पुनर्स्थापना:</strong> मर्ज या बदलने के विकल्पों के साथ बैकअप आयात करें।",
+                "hdr-io": "आयात और निर्यात",
+                "li-i-1": "<strong>JSON आयात:</strong> ड्रैग-एंड-ड्रॉप के साथ बैकअप से पुनर्स्थापित करें।",
+                "li-i-2": "<strong>टेक्स्ट आयात:</strong> नया समूह बनाने के लिए URL की सूची पेस्ट करें।",
+                "li-i-3": "<strong>बुकमार्क आयात:</strong> क्रोम बुकमार्क से टैब लाएं।",
+                "li-i-4": "<strong>JSON निर्यात:</strong> पूर्ण बैकअप।",
+                "li-i-5": "<strong>HTML निर्यात:</strong> थीम के साथ स्टाइल की गई HTML फ़ाइल।",
+                "li-i-6": "<strong>HTML लाइट:</strong> एक न्यूनतम निर्यात।",
+                "li-i-7": "<strong>टेक्स्ट निर्यात:</strong> सभी URL की सादा पाठ सूची।",
+                "li-i-8": "<strong>CSV निर्यात:</strong> स्प्रेडशीट-संगत प्रारूप।",
+                "li-i-9": "<strong>प्रिंट / PDF:</strong> अपनी सूची प्रिंट करें या PDF के रूप में सहेजें।",
+                "hdr-view": "दृश्य और अनुकूलन",
+                "li-v-1": "<strong>मानक डैशबोर्ड:</strong> प्रबंधन के लिए क्लासिक पूर्ण-पृष्ठ दृश्य।",
+                "li-v-2": "<strong>साइडबार मोड:</strong> ब्राउज़ करते समय त्वरित पहुंच के लिए कॉम्पैक्ट साइड पैनल।",
+                "li-v-3": "<strong>वाइड मोड:</strong> बड़े मॉनिटर के लिए अनुकूलित लेआउट।",
+                "li-v-4": "<strong>मल्टी-यूज़र प्रोफाइल:</strong> टैब संग्रह को अलग रखने के लिए प्रोफाइल बनाएं।",
+                "li-v-5": "<strong>थीम:</strong> लाइट और डार्क मोड के बीच स्विच करें।",
+                "li-v-6": "<strong>URL प्रदर्शन:</strong> पूर्ण, डोमेन, छोटा या छिपा हुआ।",
+                "li-v-7": "<strong>पेजिनेशन:</strong> प्रति पृष्ठ कितने समूह प्रदर्शित करें।",
+                "li-v-8": "<strong>13 भाषाएं:</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID।",
+                "li-v-9": "<strong>स्टार्टअप पर खोलें:</strong> क्रोम शुरू होने पर स्वचालित रूप से AllTab खोलें।",
+                "li-v-10": "<strong>वन-क्लिक सेव:</strong> आइकन क्लिक पर तुरंत सहेजने के लिए कॉन्फ़िगर करें।",
+                "li-v-11": "<strong>खोलने पर हटाएं:</strong> पुनर्स्थापित करते समय सूची से टैब हटा दें।",
+                "li-v-12": "<strong>खोलने पर फोकस:</strong> पुनर्स्थापित टैब को तुरंत सक्रिय करें।",
+                "li-v-13": "<strong>सोते हुए खोलें:</strong> मेमोरी बचाने के लिए हाइबरनेट स्थिति में खोलें।",
+                "hdr-shortcuts": "कीबोर्ड शॉर्टकट",
+                "txt-shortcuts": "इन शॉर्टकट के साथ अपने काम को गति दें:",
+                "sc-1": "डैशबोर्ड खोलें",
+                "sc-2": "विंडो सहेजें",
+                "sc-3": "सक्रिय टैब सहेजें",
+                "sc-4": "सक्रिय टैब हाइबरनेट करें",
+                "hdr-tools": "उपकरण",
+                "li-t-1": "<strong>आयोजक:</strong> समूहों और टैब को पुनर्व्यवस्थित करें।",
+                "li-t-2": "<strong>डुप्लिकेट हटाएं:</strong> सभी समूहों में डुप्लिकेट टैब हटाएं।",
+                "li-t-3": "<strong>सफाई:</strong> पुराने टैब को स्वचालित रूप से हटाएं।",
+                "li-t-4": "<strong>कचरा पेटी:</strong> हाल ही में हटाए गए आइटम देखें और पुनर्स्थापित करें।",
+                "li-t-5": "<strong>मदद:</strong> विस्तृत निर्देशों के साथ गाइड।",
+                "li-t-6": "<strong>के बारे में:</strong> संस्करण और क्रेडिट।",
+                "txt-footer": "AllTab आपके ब्राउज़िंग सत्रों के लिए अंतिम घर बनने के लिए डिज़ाइन किया गया है।"
+            },
+            ar: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "كل علامات التبويب الخاصة بك، في مكان واحد، تحت سيطرتك.",
+                "hdr-management": "إدارة ذكية لعلامات التبويب",
+                "li-m-1": "<strong>حفظ بنقرة واحدة:</strong> احفظ جميع علامات التبويب في النافذة الحالية أو جميع النوافذ في آن واحد.",
+                "li-m-2": "<strong>حفظ مرن:</strong> احفظ هذه العلامة فقط، أو اليسرى، أو اليمنى، أو كل شيء ما عدا هذه.",
+                "li-m-3": "<strong>إعادة الضبط الكبرى:</strong> انقر فوق الشعار لحفظ وإغلاق كل شيء فوراً.",
+                "li-m-4": "<strong>قوائم السياق:</strong> انقر بزر الماوس الأيمن للحصول على خيارات حفظ سريعة.",
+                "li-m-5": "<strong>إرسال تلقائي:</strong> حفظ وإغلاق علامات التبويب غير النشطة تلقائياً.",
+                "li-m-6": "<strong>البقاء في النافذة:</strong> خيار البقاء في نافذتك الحالية بعد الحفظ.",
+                "li-m-7": "<strong>حفظ مجموعة Chrome:</strong> احفظ مجموعة علامات تبويب أصلية بالاسم واللون.",
+                "li-m-8": "<strong>استعادة المجموعة:</strong> افتح جميع علامات التبويب في مجموعة بنقرة واحدة.",
+                "hdr-organization": "التنظيم المرئي",
+                "li-o-1": "<strong>تجميع تلقائي:</strong> يتم تجميع العلامات المحفوظة معاً حسب الجلسة.",
+                "li-o-2": "<strong>تسمية المجموعات:</strong> أعط أسماء مخصصة لمجموعاتك.",
+                "li-o-3": "<strong>سحب وإفلات:</strong> إعادة ترتيب العلامات والمجموعات بسهولة.",
+                "li-o-4": "<strong>وسوم (Tags):</strong> تعيين وسوم للمجموعات للتصنيف.",
+                "li-o-5": "<strong>بحث:</strong> ابحث فوراً في جميع علامات التبويب والمجموعات.",
+                "li-o-6": "<strong>تصفية التاريخ:</strong> تصفية المجموعات حسب تاريخ الإنشاء.",
+                "li-o-7": "<strong>تصفية الوسم:</strong> إظهار المجموعات التي تطابق وسماً محدداً.",
+                "li-o-8": "<strong>إنشاء بين المجموعات:</strong> انقر فوق + بين المجموعات لإدراج مجموعة فارغة.",
+                "li-o-9": "<strong>العودة للأعلى:</strong> زر سريع للعودة إلى أعلى القائمة.",
+                "hdr-performance": "الأداء والكفاءة",
+                "li-p-1": "<strong>مراقب الذاكرة:</strong> عرض حي لاستخدام ذاكرة النظام والمتصفح.",
+                "li-p-2": "<strong>الإسبات:</strong> تعليق العلامات غير النشطة لتحرير الذاكرة.",
+                "li-p-3": "<strong>إسبات تلقائي:</strong> مؤقتات لإسبات العلامات تلقائياً.",
+                "li-p-4": "<strong>القائمة البيضاء:</strong> استبعاد مواقع محددة من الإسبات.",
+                "li-p-5": "<strong>إسبات من القائمة:</strong> إسبات هذه، اليسرى، اليمنى، أو إيقاظ الكل.",
+                "li-p-6": "<strong>تحكم النوم:</strong> الاستيقاظ عند إعادة التحميل أو الزيارة.",
+                "li-p-7": "<strong>تنظيف التكرار:</strong> إزالة العلامات المكررة تلقائياً.",
+                "li-p-8": "<strong>تنظيف تلقائي:</strong> إزالة العلامات القديمة بعد فترة محددة.",
+                "li-p-9": "<strong>استثناءات:</strong> نطاقات محمية من التنظيف التلقائي.",
+                "hdr-safety": "الأمان والخصوصية",
+                "li-s-1": "<strong>دون اتصال أولاً:</strong> تظل البيانات على جهازك. لا تتبع.",
+                "li-s-2": "<strong>سلة المحذوفات:</strong> الاحتفاظ بالعناصر المحذوفة لمدة 30 يوماً.",
+                "li-s-3": "<strong>تراجع (Undo):</strong> 20 ثانية لاستعادة ما تم حذفه.",
+                "li-s-4": "<strong>تثبيت (Pin):</strong> حماية المجموعات المهمة من الحذف.",
+                "li-s-5": "<strong>نسخ احتياطي (JSON):</strong> تصدير مجموعتك بالكامل.",
+                "li-s-6": "<strong>استعادة:</strong> استيراد مع خيارات الدمج أو الاستبدال.",
+                "hdr-io": "استيراد وتصدير",
+                "li-i-1": "<strong>استيراد JSON:</strong> استعادة النسخة الاحتياطية بالسحب والإفلات.",
+                "li-i-2": "<strong>استيراد نص:</strong> لصق قائمة عناوين URL لإنشاء مجموعة.",
+                "li-i-3": "<strong>استيراد إشارات:</strong> جلب العلامات من إشارات Chrome.",
+                "li-i-4": "<strong>تصدير JSON:</strong> نسخة احتياطية كاملة.",
+                "li-i-5": "<strong>تصدير HTML:</strong> ملف منسق مع سمات.",
+                "li-i-6": "<strong>تصدير HTML Lite:</strong> تصدير خفيف ومبسط.",
+                "li-i-7": "<strong>تصدير نص:</strong> قائمة عناوين URL نصية.",
+                "li-i-8": "<strong>تصدير CSV:</strong> تنسيق متوافق مع جداول البيانات.",
+                "li-i-9": "<strong>طباعة / PDF:</strong> طباعة القائمة أو حفظها كملف PDF.",
+                "hdr-view": "العرض والتخصيص",
+                "li-v-1": "<strong>لوحة قيادة قياسية:</strong> عرض كامل كلاسيكي للإدارة.",
+                "li-v-2": "<strong>وضع الشريط الجانبي:</strong> لوحة جانبية مدمجة.",
+                "li-v-3": "<strong>الوضع العريض:</strong> تخطيط محسن للشاشات الكبيرة.",
+                "li-v-4": "<strong>ملفات تعريف متعددة:</strong> مجموعات علامات تبويب منفصلة.",
+                "li-v-5": "<strong>السمة:</strong> التبديل بين الوضع الفاتح والداكن.",
+                "li-v-6": "<strong>عرض URL:</strong> كامل، نطاق فقط، مختصر، أو مخفي.",
+                "li-v-7": "<strong>الترقيم:</strong> عدد المجموعات في كل صفحة.",
+                "li-v-8": "<strong>13 لغة:</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID.",
+                "li-v-9": "<strong>فتح عند البدء:</strong> فتح AllTab تلقائياً مع Chrome.",
+                "li-v-10": "<strong>حفظ سريع:</strong> انقر فوق الرمز للحفظ فوراً.",
+                "li-v-11": "<strong>حذف عند الفتح:</strong> إزالة من القائمة عند الاستعادة.",
+                "li-v-12": "<strong>تركيز عند الفتح:</strong> تنشيط العلامة المستعادة فوراً.",
+                "li-v-13": "<strong>فتح في وضع السكون:</strong> استعادة في وضع الإسبات لتوفير الذاكرة.",
+                "hdr-shortcuts": "اختصارات لوحة المفاتيح",
+                "txt-shortcuts": "تسريع سير عملك:",
+                "sc-1": "فتح لوحة القيادة",
+                "sc-2": "حفظ النافذة",
+                "sc-3": "حفظ العلامة النشطة",
+                "sc-4": "إسبات العلامة النشطة",
+                "hdr-tools": "أدوات",
+                "li-t-1": "<strong>منظم:</strong> إعادة ترتيب المجموعات وعلامات التبويب.",
+                "li-t-2": "<strong>تكرار:</strong> إزالة العلامات المكررة.",
+                "li-t-3": "<strong>تنظيف:</strong> حذف العلامات القديمة تلقائياً.",
+                "li-t-4": "<strong>سلة المحذوفات:</strong> استعادة العناصر المحذوفة.",
+                "li-t-5": "<strong>مساعدة:</strong> دليل مفصل للميزات.",
+                "li-t-6": "<strong>حول:</strong> الإصدار والاعتمادات.",
+                "txt-footer": "تم تصميم AllTab ليكون الموطن النهائي لجلسات التصفح الخاصة بك."
+            },
+            bn: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "আপনার সমস্ত ট্যাব, এক জায়গায়, আপনার নিয়ন্ত্রণে।",
+                "hdr-management": "স্মার্ট ট্যাব পরিচালনা",
+                "li-m-1": "<strong>এক-ক্লিক সেভ:</strong> বর্তমান উইন্ডো বা সমস্ত উইন্ডোর সব ট্যাব একসাথে সেভ করুন।",
+                "li-m-2": "<strong>নমনীয় সংরক্ষণ:</strong> শুধুমাত্র এই ট্যাব, বাম, ডান, या এটি ছাড়া সব সংরক্ষণ করুন।",
+                "li-m-3": "<strong>গ্রেট রিসেট:</strong> ড্যাশবোর্ড লোগোতে ক্লিক করুন এবং অবিলম্বে সবকিছু সেভ করে বন্ধ করুন।",
+                "li-m-4": "<strong>প্রসঙ্গ মেনু:</strong> দ্রুত সেভ অপশন অ্যাক্সেস করতে যেকোনো পৃষ্ঠায় ডান ক্লিক করুন।",
+                "li-m-5": "<strong>অটো-সেন্ড:</strong> নিষ্ক্রিয় ট্যাবগুলি স্বয়ংক্রিয়ভাবে সেভ এবং বন্ধ করুন।",
+                "li-m-6": "<strong>উইন্ডোতে থাকুন:</strong> সেভ করার পরে আপনার বর্তমান উইন্ডোতে থাকার বিকল্প।",
+                "li-m-7": "<strong>ক্রোম গ্রুপ সেভ:</strong> ক্রোম নেটিভ ট্যাব গ্রুপগুলি নাম এবং রঙের সাথে সেভ করুন।",
+                "li-m-8": "<strong>গ্রুপ পুনরুদ্ধার:</strong> এক ক্লিকে একটি সেভ করা গ্রুপের সমস্ত ট্যাব খুলুন।",
+                "hdr-organization": "ভিজ্যুয়াল অর্গানাইজেশন",
+                "li-o-1": "<strong>অটো-গ্রুপিং:</strong> একসাথে সেভ করা ট্যাবগুলি সেশন অনুযায়ী স্বয়ংক্রিয়ভাবে গ্রুপ করা হয়।",
+                "li-o-2": "<strong>গ্রুপের নাম পরিবর্তন:</strong> সহজ শনাক্তকরণের জন্য আপনার গ্রুপগুলিকে কাস্টম নাম দিন।",
+                "li-o-3": "<strong>ড্র্যাগ এবং ড্রপ:</strong> সম্পূর্ণ ড্র্যাগ-এন্ড-ড্রপ সমর্থন সহ ট্যাব এবং গ্রুপগুলি পুনরায় সাজান।",
+                "li-o-4": "<strong>ট্যাগ:</strong> শ্রেণীভুক্ত করতে গ্রুপগুলিতে ট্যাগ বরাদ্দ করুন।",
+                "li-o-5": "<strong>অনুসন্ধান:</strong> আপনার সমস্ত সেভ করা ট্যাব এবং গ্রুপের নামগুলির মধ্যে অবিলম্বে অনুসন্ধান করুন।",
+                "li-o-6": "<strong>তারিখ ফিল্টার:</strong> তৈরির তারিখ অনুসারে গ্রুপগুলি ফিল্টার করুন।",
+                "li-o-7": "<strong>ট্যাগ ফিল্টার:</strong> শুধুমাত্র একটি নির্দিষ্ট ট্যাগের সাথে মেলে এমন গ্রুপ দেখান।",
+                "li-o-8": "<strong>গ্রুপের মধ্যে তৈরি:</strong> একটি নতুন খালি গ্রুপ সন্নিবেশ করতে গ্রুপগুলির মধ্যে + ক্লিক করুন।",
+                "li-o-9": "<strong>উপরে ফিরে যান:</strong> আপনার ট্যাব তালিকার শীর্ষে ফিরে যাওয়ার জন্য দ্রুত বোতাম।",
+                "hdr-performance": "পারফরম্যান্স এবং দক্ষতা",
+                "li-p-1": "<strong>RAM মনিটর:</strong> রিয়েল-টাইমে সিস্টেম এবং ক্রোম মেমরি ব্যবহার দেখুন।",
+                "li-p-2": "<strong>হাইবারনেশন:</strong> মেমরি মুক্ত করতে নিষ্ক্রিয় ট্যাবগুলিকে স্থগিত করুন।",
+                "li-p-3": "<strong>অটো-হাইবারনেশন:</strong> স্বয়ংক্রিয়ভাবে ট্যাব হাইবারনেট করার জন্য টাইমার সেট করুন।",
+                "li-p-4": "<strong>হোয়াইটলিস্ট:</strong> নির্দিষ্ট সাইটগুলিকে হাইবারনেশন থেকে বাদ দিন।",
+                "li-p-5": "<strong>মেনু থেকে হাইবারনেট:</strong> এই ট্যাব, বাম, ডান বা সব হাইবারনেট/জাগান।",
+                "li-p-6": "<strong>স্লিপ কন্ট্রোল:</strong> রিলোড বা ভিজিট করার সময় স্লিপিং ট্যাব জাগান।",
+                "li-p-7": "<strong>ডুপ্লিকেট ক্লিনআপ:</strong> স্বয়ংক্রিয়ভাবে ডুপ্লিকেট ট্যাব শনাক্ত এবং সরান।",
+                "li-p-8": "<strong>অটো ক্লিনআপ:</strong> একটি নির্দিষ্ট সময়ের পরে পুরানো অব্যবহৃত ট্যাবগুলি সরান।",
+                "li-p-9": "<strong>বাদ দেওয়া:</strong> ডোমেনগুলিকে অটো ডিলিট থেকে সুরক্ষিত রাখুন।",
+                "hdr-safety": "ডেটা সুরক্ষা এবং গোপনীয়তা",
+                "li-s-1": "<strong>অফলাইন আগে:</strong> সমস্ত ডেটা আপনার ডিভাইসেই থাকে। কোনো বাহ্যিক ট্র্যাকিং নেই।",
+                "li-s-2": "<strong>রিসাইকেল বিন:</strong> মুছে ফেলা আইটেমগুলি সম্পূর্ণ মুছে ফেলার আগে ৩০ দিনের জন্য রাখা হয়।",
+                "li-s-3": "<strong>আনডু (Undo):</strong> ২০ সেকেন্ডের মধ্যে মুছে ফেলা আইটেম ফিরিয়ে আনুন।",
+                "li-s-4": "<strong>পিন (Pin):</strong> গুরুত্বপূর্ণ গ্রুপগুলিকে দুর্ঘটনাজনিত ডিলিট থেকে লক করুন।",
+                "li-s-5": "<strong>ব্যাকআপ (JSON):</strong> আপনার পুরো সংগ্রহ একটি JSON ফাইলে রপ্তানি করুন।",
+                "li-s-6": "<strong>পুনরুদ্ধার:</strong> মার্জ বা প্রতিস্থাপন বিকল্পগুলির সাথে ব্যাকআপ আমদানি করুন।",
+                "hdr-io": "আমদানি এবং রপ্তানি",
+                "li-i-1": "<strong>JSON আমদানি:</strong> ড্র্যাগ-এন্ড-ড্রপ দিয়ে ব্যাকআপ থেকে পুনরুদ্ধার করুন।",
+                "li-i-2": "<strong>টেক্সট আমদানি:</strong> নতুন গ্রুপ তৈরি করতে URL তালিকা পেস্ট করুন।",
+                "li-i-3": "<strong>বুকমার্ক আমদানি:</strong> ক্রোম বুকমার্ক থেকে ট্যাব আনুন।",
+                "li-i-4": "<strong>JSON রপ্তানি:</strong> সম্পূর্ণ ব্যাকআপ।",
+                "li-i-5": "<strong>HTML রপ্তানি:</strong> থিমযুক্ত স্টাইলিশ HTML ফাইল।",
+                "li-i-6": "<strong>HTML লাইট:</strong> একটি হালকা রপ্তানি।",
+                "li-i-7": "<strong>টেক্সট রপ্তানি:</strong> সমস্ত URL-এর প্লেইন টেক্সট তালিকা।",
+                "li-i-8": "<strong>CSV রপ্তানি:</strong> স্প্রেডশীট-সামঞ্জস্যপূর্ণ বিন্যাস।",
+                "li-i-9": "<strong>প্রিন্ট / PDF:</strong> আপনার তালিকা প্রিন্ট করুন বা PDF হিসেবে সেভ করুন।",
+                "hdr-view": "ভিউ এবং কাস্টমাইজেশন",
+                "li-v-1": "<strong>স্ট্যান্ডার্ড ড্যাশবোর্ড:</strong> সব পরিচালনা করার জন্য ক্লাসিক পূর্ণ-স্ক্রীন দৃশ্য।",
+                "li-v-2": "<strong>সাইডবার মোড:</strong> ব্রাউজ করার সময় দ্রুত অ্যাক্সেসের জন্য কমপ্যাক্ট সাইড প্যানেল।",
+                "li-v-3": "<strong>ওয়াইড মোড:</strong> বড় মনিটরের জন্য অপ্টিমাইজ করা লেআউট।",
+                "li-v-4": "<strong>মাল্টি-ইউজার প্রোফাইল:</strong> ট্যাব কালেকশন আলাদা রাখতে প্রোফাইল তৈরি করুন।",
+                "li-v-5": "<strong>থিম:</strong> লাইট এবং ডার্ক মোডের মধ্যে স্যুইচ করুন।",
+                "li-v-6": "<strong>URL প্রদর্শন:</strong> সম্পূর্ণ, শুধু ডোমেইন, ছোট বা লুকানো।",
+                "li-v-7": "<strong>পেজিনেশন:</strong> প্রতি পৃষ্ঠায় কতগুলো গ্রুপ দেখাবে।",
+                "li-v-8": "<strong>১৩টি ভাষা:</strong> ইংরেজি, স্প্যানিশ, ফ্রেঞ্চ, পর্তুগিজ, জার্মান, চীনা, জাপানি, রুশ, হিন্দি, আরবি, বাংলা, উর্দু, ইন্দোনেশীয়।",
+                "li-v-9": "<strong>স্টার্টআপে খুলুন:</strong> ক্রোম শুরু হলে স্বয়ংক্রিয়ভাবে AllTab খুলুন।",
+                "li-v-10": "<strong>এক-ক্লিক সেভ:</strong> আইকন ক্লিকে অবিলম্বে সেভ করার জন্য কনফিগার করুন।",
+                "li-v-11": "<strong>খোলার সময় ডিলিট:</strong> পুনরুদ্ধার করার সময় তালিকা থেকে ট্যাব সরান।",
+                "li-v-12": "<strong>খোলার সময় ফোকাস:</strong> পুনরুদ্ধার করা ট্যাব অবিলম্বে সক্রিয় করুন।",
+                "li-v-13": "<strong>স্লিপ অবস্থায় খুলুন:</strong> মেমরি বাঁচাতে হাইবারনেট অবস্থায় খুলুন।",
+                "hdr-shortcuts": "কীবোর্ড শর্টকাট",
+                "txt-shortcuts": "এই শর্টকাটগুলির মাধ্যমে আপনার কাজ দ্রুত করুন:",
+                "sc-1": "ড্যাশবোর্ড খুলুন",
+                "sc-2": "উইন্ডো সেভ করুন",
+                "sc-3": "সক্রিয় ট্যাব সেভ করুন",
+                "sc-4": "সক্রিয় ট্যাব হাইবারনেট করুন",
+                "hdr-tools": "সরঞ্জাম",
+                "li-t-1": "<strong>অর্গানাইজার:</strong> গ্রুপ এবং ট্যাব পুনরায় সাজান।",
+                "li-t-2": "<strong>ডুপ্লিকেট রিমুভ:</strong> সমস্ত গ্রুপে ডুপ্লিকেট ট্যাব স্ক্যান এবং সরান।",
+                "li-t-3": "<strong>ক্লিনআপ:</strong> পুরানো ট্যাব স্বয়ংক্রিয়ভাবে ডিলিট করুন।",
+                "li-t-4": "<strong>রিসাইকেল বিন:</strong> সম্প্রতি মুছে ফেলা আইটেম দেখুন এবং পুনরুদ্ধার করুন।",
+                "li-t-5": "<strong>সাহায্য:</strong> প্রতিটি ফিচার ব্যবহারের বিস্তারিত গাইড।",
+                "li-t-6": "<strong>সম্পর্কে:</strong> সংস্করণ এবং ক্রেডিট।",
+                "txt-footer": "AllTab আপনার ব্রাউজিং সেশনের জন্য সেরা ঠিকানা হিসেবে ডিজাইন করা হয়েছে।"
+            },
+            ur: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "آپ کے تمام ٹیبز، ایک جگہ پر، آپ کے کنٹرول میں۔",
+                "hdr-management": "اسمارٹ ٹیب مینجمنٹ",
+                "li-m-1": "<strong>ایک کلک پر محفوظ کریں:</strong> موجودہ ونڈو یا تمام ونڈوز کے تمام ٹیبز کو ایک ہی وقت میں محفوظ کریں۔",
+                "li-m-2": "<strong>لچکدار محفوظ:</strong> صرف اس ٹیب، بائیں، دائیں، یا اس کے علاوہ سب کچھ محفوظ کریں۔",
+                "li-m-3": "<strong>گریٹ ریسیٹ:</strong> فوری طور پر سب کچھ محفوظ کرنے اور بند کرنے کے لیے ڈیش بورڈ لوگو پر کلک کریں۔",
+                "li-m-4": "<strong>سیاق و سباق مینو:</strong> فوری محفوظ کرنے کے اختیارات کے لیے کسی بھی صفحے پر دائیں کلک کریں۔",
+                "li-m-5": "<strong>آٹو سینڈ:</strong> غیر فعال ٹیبز کو خود بخود محفوظ اور بند کریں۔",
+                "li-m-6": "<strong>ونڈو میں رہیں:</strong> محفوظ کرنے کے بعد آپ کی موجودہ ونڈو میں رہنے کا اختیار۔",
+                "li-m-7": "<strong>کروم گروپ محفوظ کریں:</strong> نام اور رنگ کے ساتھ کروم ٹیب گروپ کو براہ راست محفوظ کریں۔",
+                "li-m-8": "<strong>گروپ بحال کریں:</strong> ایک کلک میں محفوظ شدہ گروپ کے تمام ٹیبز کھولیں۔",
+                "hdr-organization": "بصری تنظیم",
+                "li-o-1": "<strong>آٹو گروپنگ:</strong> ایک ساتھ محفوظ کیے گئے ٹیبز خود بخود سیشن کے لحاظ سے گروپ ہو جاتے ہیں۔",
+                "li-o-2": "<strong>گروپ کا نام تبدیل کریں:</strong> آسان شناخت کے لیے اپنے گروپس کو کسٹم نام دیں۔",
+                "li-o-3": "<strong>ڈریگ اور ڈراپ:</strong> مکمل ڈریگ اور ڈراپ سپورٹ کے ساتھ ٹیبز اور گروپس کو دوبارہ ترتیب دیں۔",
+                "li-o-4": "<strong>ٹیگ:</strong> گروپس کی درجہ بندی کرنے کے لیے ٹیگز تفویض کریں۔",
+                "li-o-5": "<strong>تلاش:</strong> اپنے تمام محفوظ شدہ ٹیبز اور گروپ کے ناموں میں فوری طور پر تلاش کریں۔",
+                "li-o-6": "<strong>تاریخ فلٹر:</strong> گروپس کو ان کی تخلیق کی تاریخ کے لحاظ سے فلٹر کریں۔",
+                "li-o-7": "<strong>ٹیگ فلٹر:</strong> صرف مخصوص ٹیگ والے گروپس دکھائیں۔",
+                "li-o-8": "<strong>گروپ کے درمیان تخلیق:</strong> ایک نیا خالی گروپ داخل کرنے کے لیے گروپس کے درمیان + پر کلک کریں۔",
+                "li-o-9": "<strong>اوپر جائیں:</strong> اپنی ٹیب لسٹ کے اوپر واپس جانے کے لیے فوری بٹن۔",
+                "hdr-performance": "کارکردگی اور کارکردگی",
+                "li-p-1": "<strong>ریم مانیٹر:</strong> سسٹم اور کروم میموری کے استعمال کا ریئل ٹائم ڈسپلے۔",
+                "li-p-2": "<strong>ہائبرنیشن:</strong> میموری خالی کرنے کے لیے غیر فعال ٹیبز کو معطل کریں۔",
+                "li-p-3": "<strong>آٹو ہائبرنیشن:</strong> ٹیبز کو خود بخود ہائبرنیٹ کرنے کے لیے ٹائمر سیٹ کریں۔",
+                "li-p-4": "<strong>سفید فہرست:</strong> مخصوص سائٹس کو ہائبرنیشن سے خارج کریں۔",
+                "li-p-5": "<strong>مینو سے ہائبرنیٹ:</strong> اس ٹیب، بائیں، دائیں یا سب کو ہائبرنیٹ/جگائیں۔",
+                "li-p-6": "<strong>نیند کنٹرول:</strong> دوبارہ لوڈ یا وزٹ کرنے پر سوئے ہوئے ٹیبز کو جگائیں۔",
+                "li-p-7": "<strong>ڈپلیکیٹ صفائی:</strong> ڈپلیکیٹ ٹیبز کی خودکار شناخت کریں اور ہٹا دیں۔",
+                "li-p-8": "<strong>خودکار صفائی:</strong> ایک مقررہ مدت کے بعد پرانے ٹیبز کو ہٹا دیں۔",
+                "li-p-9": "<strong>استثنیٰ:</strong> ڈومینز کو خودکار صفائی سے محفوظ رکھیں۔",
+                "hdr-safety": "ڈیٹا سیفٹی اور پرائیویسی",
+                "li-s-1": "<strong>آف لائن پہلے:</strong> تمام ڈیٹا آپ کے ڈیوائس پر رہتا ہے۔ کوئی بیرونی ٹریکنگ نہیں۔",
+                "li-s-2": "<strong>ریسائیکل بن:</strong> حذف شدہ آئٹمز کو مکمل طور پر حذف کرنے سے پہلے 30 دن تک رکھا جاتا ہے۔",
+                "li-s-3": "<strong>انڈو (Undo):</strong> 20 سیکنڈ کے اندر حذف شدہ آئٹم واپس لائیں۔",
+                "li-s-4": "<strong>پن (Pin):</strong> اہم گروپس کو حادثاتی ڈیلیٹ سے لاک کریں۔",
+                "li-s-5": "<strong>بیک اپ (JSON):</strong> اپنا پورا مجموعہ JSON فائل میں ایکسپورٹ کریں۔",
+                "li-s-6": "<strong>بحالی:</strong> ضم یا تبدیل کرنے کے اختیارات کے ساتھ بیک اپ امپورٹ کریں۔",
+                "hdr-io": "درآمد اور برآمد",
+                "li-i-1": "<strong>JSON درآمد:</strong> ڈریگ اور ڈراپ کے ساتھ بیک اپ سے بحال کریں۔",
+                "li-i-2": "<strong>ٹیکسٹ درآمد:</strong> نیا گروپ بنانے کے لیے URL کی فہرست پیسٹ کریں۔",
+                "li-i-3": "<strong>بک مارک درآمد:</strong> کروم بک مارکس سے ٹیبز لائیں۔",
+                "li-i-4": "<strong>JSON برآمد:</strong> مکمل بیک اپ۔",
+                "li-i-5": "<strong>HTML برآمد:</strong> تھیم کے ساتھ اسٹائل شدہ HTML فائل۔",
+                "li-i-6": "<strong>HTML لائٹ:</strong> ایک ہلکا پھلکا برآمد۔",
+                "li-i-7": "<strong>ٹیکسٹ برآمد:</strong> تمام URL کی سادہ ٹیکسٹ فہرست۔",
+                "li-i-8": "<strong>CSV برآمد:</strong> اسپریڈشیٹ سے مطابقت رکھنے والا فارمیٹ۔",
+                "li-i-9": "<strong>پرنٹ / PDF:</strong> اپنی فہرست پرنٹ کریں یا PDF کے طور پر محفوظ کریں۔",
+                "hdr-view": "منظر اور تخصیص",
+                "li-v-1": "<strong>معیاری ڈیش بورڈ:</strong> انتظام کے لیے کلاسک فل سکرین منظر۔",
+                "li-v-2": "<strong>سائڈبار موڈ:</strong> براؤز کرتے وقت فوری رسائی کے لیے کومپیکٹ سائڈ پینل۔",
+                "li-v-3": "<strong>وائیڈ موڈ:</strong> بڑے مانیٹر کے لیے آپٹمائزڈ لے آؤٹ۔",
+                "li-v-4": "<strong>ملٹی یوزر پروفائل:</strong> ٹیب کلیکشنز کو الگ رکھنے کے لیے پروفائلز بنائیں۔",
+                "li-v-5": "<strong>تھیم:</strong> لائٹ اور ڈارک موڈ کے درمیان سوئچ کریں۔",
+                "li-v-6": "<strong>URL ڈسپلے:</strong> مکمل، صرف ڈومین، چھوٹا یا چھپا ہوا۔",
+                "li-v-7": "<strong>پیجینیشن:</strong> فی صفحہ کتنے گروپس دکھائیں۔",
+                "li-v-8": "<strong>13 زبانیں:</strong> EN, ES, FR, PT, DE, ZH, JA, RU, HI, AR, BN, UR, ID۔",
+                "li-v-9": "<strong>اسٹارٹ اپ پر کھولیں:</strong> کروم شروع ہونے پر خودکار طور پر AllTab کھولیں۔",
+                "li-v-10": "<strong>ون کلک سیو:</strong> آئیکن کلک پر فوری محفوظ کرنے کے لیے تشکیل دیں۔",
+                "li-v-11": "<strong>کھولنے پر ہٹائیں:</strong> بحال کرتے وقت فہرست سے ٹیب ہٹا دیں۔",
+                "li-v-12": "<strong>کھولنے پر فوکس:</strong> بحال شدہ ٹیب کو فوری طور پر فعال کریں۔",
+                "li-v-13": "<strong>سوتے ہوئے کھولیں:</strong> میموری بچانے کے لیے ہائبرنیٹ حالت میں کھولیں۔",
+                "hdr-shortcuts": "کی بورڈ شارٹ کٹس",
+                "txt-shortcuts": "ان شارٹ کٹس کے ساتھ اپنے کام کو تیز کریں:",
+                "sc-1": "ڈیش بورڈ کھولیں",
+                "sc-2": "ونڈو محفوظ کریں",
+                "sc-3": "فعال ٹیب محفوظ کریں",
+                "sc-4": "فعال ٹیب ہائبرنیٹ کریں",
+                "hdr-tools": "ٹولز",
+                "li-t-1": "<strong>آرگنائزر:</strong> گروپس اور ٹیبز کو دوبارہ ترتیب دیں۔",
+                "li-t-2": "<strong>ڈپلیکیٹ ہٹائیں:</strong> تمام گروپس میں ڈپلیکیٹ ٹیبز اسکین اور ہٹا دیں۔",
+                "li-t-3": "<strong>صفائی:</strong> پرانے ٹیبز کو خود بخود ہٹا دیں۔",
+                "li-t-4": "<strong>ریسائیکل بن:</strong> حال ہی میں حذف شدہ آئٹمز دیکھیں اور بحال کریں۔",
+                "li-t-5": "<strong>مدد:</strong> ہر فیچر کے استعمال کے بارے میں تفصیلی گائیڈ۔",
+                "li-t-6": "<strong>کے بارے میں:</strong> ورژن اور کریڈٹ۔",
+                "txt-footer": "AllTab آپ کے براؤزنگ سیشنز کے لیے کل وقتی گھر بننے کے لیے ڈیزائن کیا گیا ہے۔"
+            },
+            id: {
+                "hdr-alltab": "AllTab",
+                "badge-version": "v1.0.3",
+                "tagline": "Semua tab Anda, di satu tempat, di bawah kendali Anda.",
+                "hdr-management": "Manajemen Tab Pintar",
+                "li-m-1": "<strong>Simpan Sekali Klik:</strong> Simpan semua tab di jendela saat ini atau semua jendela sekaligus.",
+                "li-m-2": "<strong>Simpan Fleksibel:</strong> Simpan tab ini saja, kiri, kanan, atau semuanya selain ini.",
+                "li-m-3": "<strong>Reset Besar:</strong> Klik logo dasbor untuk menyimpan dan menutup semuanya secara instan.",
+                "li-m-4": "<strong>Menu Konteks:</strong> Klik kanan halaman mana pun untuk opsi penyimpanan cepat.",
+                "li-m-5": "<strong>Kirim Otomatis:</strong> Simpan dan tutup tab yang tidak aktif secara otomatis.",
+                "li-m-6": "<strong>Tetap di Jendela:</strong> Opsi untuk tetap berada di jendela Anda saat ini setelah menyimpan.",
+                "li-m-7": "<strong>Simpan Grup Chrome:</strong> Simpan grup tab asli Chrome lengkap dengan nama dan warna.",
+                "li-m-8": "<strong>Pulihkan Grup:</strong> Buka semua tab dalam grup yang disimpan dengan satu klik.",
+                "hdr-organization": "Organisasi Visual",
+                "li-o-1": "<strong>Pengelompokan Otomatis:</strong> Tab yang disimpan bersama dikelompokkan secara otomatis berdasarkan sesi.",
+                "li-o-2": "<strong>Ganti Nama Grup:</strong> Berikan nama khusus pada grup Anda agar mudah diidentifikasi.",
+                "li-o-3": "<strong>Seret & Lepas:</strong> Atur ulang tab dan grup dengan dukungan seret dan lepas penuh.",
+                "li-o-4": "<strong>Tag:</strong> Tetapkan tag ke grup untuk mengkategorikannya.",
+                "li-o-5": "<strong>Pencarian:</strong> Cari secara instan di semua tab dan nama grup yang disimpan.",
+                "li-o-6": "<strong>Filter Tanggal:</strong> Filter grup berdasarkan tanggal pembuatannya.",
+                "li-o-7": "<strong>Filter Tag:</strong> Tampilkan hanya grup yang cocok dengan tag tertentu.",
+                "li-o-8": "<strong>Buat Antar Grup:</strong> Klik + di antara grup untuk menyisipkan grup kosong baru.",
+                "li-o-9": "<strong>Kembali ke Atas:</strong> Tombol cepat untuk kembali ke bagian atas daftar tab Anda.",
+                "hdr-performance": "Performa dan Efisiensi",
+                "li-p-1": "<strong>Monitor RAM:</strong> Tampilan real-time penggunaan memori Sistem dan Chrome.",
+                "li-p-2": "<strong>Hibernasi:</strong> Tangguhkan tab yang tidak aktif untuk membebaskan memori.",
+                "li-p-3": "<strong>Hibernasi Otomatis:</strong> Atur timer untuk menghibernasi tab secara otomatis.",
+                "li-p-4": "<strong>Daftar Putih:</strong> Kecualikan situs tertentu dari hibernasi.",
+                "li-p-5": "<strong>Hibernasi dari Menu:</strong> Hibernasi tab ini, kiri, kanan, atau semua / bangunkan semua.",
+                "li-p-6": "<strong>Kontrol Tidur:</strong> Bangunkan tab tidur saat dimuat ulang atau dikunjungi.",
+                "li-p-7": "<strong>Pembersihan Duplikat:</strong> Identifikasi dan hapus tab duplikat secara otomatis.",
+                "li-p-8": "<strong>Pembersihan Otomatis:</strong> Hapus tab lama yang tidak digunakan setelah periode tertentu.",
+                "li-p-9": "<strong>Pengecualian:</strong> Lindungi domain dari penghapusan otomatis.",
+                "hdr-safety": "Keamanan Data dan Privasi",
+                "li-s-1": "<strong>Offline First:</strong> Semua data tetap di perangkat Anda. Tidak ada pelacakan eksternal.",
+                "li-s-2": "<strong>Keranjang Sampah:</strong> Item yang dihapus disimpan selama 30 hari sebelum dihapus permanen.",
+                "li-s-3": "<strong>Urungkan (Undo):</strong> Kembalikan item yang dihapus dalam waktu 20 detik.",
+                "li-s-4": "<strong>Sematkan (Pin):</strong> Kunci grup penting dari penghapusan yang tidak disengaja.",
+                "li-s-5": "<strong>Cadangan (JSON):</strong> Ekspor seluruh koleksi Anda ke file JSON.",
+                "li-s-6": "<strong>Pulihkan:</strong> Impor cadangan dengan opsi gabungkan atau ganti.",
+                "hdr-io": "Impor dan Ekspor",
+                "li-i-1": "<strong>Impor JSON:</strong> Pulihkan dari cadangan dengan seret dan lepas.",
+                "li-i-2": "<strong>Impor Teks:</strong> Tempel daftar URL untuk membuat grup baru.",
+                "li-i-3": "<strong>Impor Bookmark:</strong> Ambil tab dari bookmark Chrome.",
+                "li-i-4": "<strong>Ekspor JSON:</strong> Cadangan lengkap.",
+                "li-i-5": "<strong>Ekspor HTML:</strong> File HTML bergaya dengan tema.",
+                "li-i-6": "<strong>Ekspor HTML Lite:</strong> Ekspor yang ringan dan minimalis.",
+                "li-i-7": "<strong>Ekspor Teks:</strong> Daftar teks biasa dari semua URL.",
+                "li-i-8": "<strong>Ekspor CSV:</strong> Format yang kompatibel dengan spreadsheet.",
+                "li-i-9": "<strong>Cetak / PDF:</strong> Cetak daftar Anda atau simpan sebagai PDF.",
+                "hdr-view": "Tampilan dan Kustomisasi",
+                "li-v-1": "<strong>Dasbor Standar:</strong> Tampilan layar penuh klasik untuk mengelola semuanya.",
+                "li-v-2": "<strong>Mode Bilah Sisi:</strong> Panel samping ringkas untuk akses cepat saat menjelajah.",
+                "li-v-3": "<strong>Mode Lebar:</strong> Tata letak yang dioptimalkan untuk monitor besar.",
+                "li-v-4": "<strong>Profil Multi-Pengguna:</strong> Buat profil untuk memisahkan koleksi tab.",
+                "li-v-5": "<strong>Tema:</strong> Beralih antara mode Terang dan Gelap.",
+                "li-v-6": "<strong>Tampilan URL:</strong> Lengkap, hanya domain, dipersingkat, atau disembunyikan.",
+                "li-v-7": "<strong>Paginasi:</strong> Jumlah grup yang ditampilkan per halaman.",
+                "li-v-8": "<strong>13 Bahasa:</strong> Inggris, Spanyol, Prancis, Portugis, Jerman, Mandarin, Jepang, Rusia, Hindi, Arab, Bengali, Urdu, Indonesia.",
+                "li-v-9": "<strong>Buka saat Startup:</strong> Buka AllTab secara otomatis saat Chrome dimulai.",
+                "li-v-10": "<strong>Simpan Sekali Klik:</strong> Konfigurasikan untuk menyimpan segera setelah ikon diklik.",
+                "li-v-11": "<strong>Hapus saat Dibuka:</strong> Hapus tab dari daftar saat memulihkan.",
+                "li-v-12": "<strong>Fokus saat Dibuka:</strong> Segera aktifkan tab yang dipulihkan.",
+                "li-v-13": "<strong>Buka dalam Tidur:</strong> Pulihkan dalam keadaan hibernasi untuk menghemat memori.",
+                "hdr-shortcuts": "Pintasan Keyboard",
+                "txt-shortcuts": "Percepat alur kerja Anda dengan pintasan ini:",
+                "sc-1": "Buka Dasbor",
+                "sc-2": "Simpan Jendela",
+                "sc-3": "Simpan Tab Aktif",
+                "sc-4": "Hibernasi Tab Aktif",
+                "hdr-tools": "Alat",
+                "li-t-1": "<strong>Organizer:</strong> Halaman khusus untuk menyortir grup dan tab.",
+                "li-t-2": "<strong>Hapus Duplikat:</strong> Pindai dan hapus tab duplikat di semua grup.",
+                "li-t-3": "<strong>Pembersihan:</strong> Hapus tab lama secara otomatis.",
+                "li-t-4": "<strong>Keranjang Sampah:</strong> Lihat dan pulihkan item yang baru saja dihapus.",
+                "li-t-5": "<strong>Bantuan:</strong> Panduan mendalam tentang cara menggunakan setiap fitur.",
+                "li-t-6": "<strong>Tentang:</strong> Informasi tentang ekstensi, versi, dan kredit.",
+                "txt-footer": "AllTab dirancang untuk menjadi rumah utama bagi sesi penjelajahan Anda."
+            }
+        };
+
+        function detectLanguage() {
+            const navLang = navigator.language || navigator.userLanguage;
+            const lang = navLang.split('-')[0];
+            return TRANSLATIONS[lang] ? lang : 'en';
+        }
+
+        function applyTranslations() {
+            const lang = detectLanguage();
+            const texts = TRANSLATIONS[lang];
+
+            for (const id in texts) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = texts[id];
+                }
+            }
+
+            // Update page title if needed
+            if (lang === 'es') {
+                document.title = "Funciones de AllTab";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', applyTranslations);
+    </script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "1bd7fc1e40594b0d8b015d5dd6325f42"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 
 </html>

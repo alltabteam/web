@@ -5,54 +5,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support AllTab</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
         :root {
-            --bg-app: #f5f7fa;
-            --bg-card: #ffffff;
-            --text-primary: #2d3748;
-            --text-secondary: #718096;
+            /* Branding & Colors from index.html */
+            --bg-dark: #0f1014;
+            --bg-gradient: radial-gradient(circle at 50% 0%, #1e2028 0%, #0f1014 80%);
             --accent-blue: #3182ce;
-            --border-color: #e2e8f0;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-radius: 10px;
-            --steam-color: rgba(120, 120, 120, 0.4);
+            --accent-glow: rgba(49, 130, 206, 0.4);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a5;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --card-hover-border: rgba(49, 130, 206, 0.5);
+            --hover-lift: translateY(-8px) scale(1.02);
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+            /* Legacy mappings if needed */
+            --bg-app: var(--bg-dark);
+            --bg-card: var(--card-bg);
+            --border-color: var(--card-border);
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --card-radius: 24px;
+            --steam-color: rgba(180, 180, 180, 0.35);
         }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-app: #1c1c1e;
-                --bg-card: #2c2c2e;
-                --text-primary: #f2f2f5;
-                --text-secondary: #aeaeb2;
-                --accent-blue: #0a84ff;
-                --border-color: #38383a;
-                --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-                --steam-color: rgba(180, 180, 180, 0.35);
-            }
-        }
+        /* Dark theme default */
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-app);
+            font-family: 'Roboto', inter, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
             color: var(--text-primary);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
             text-align: center;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            background: var(--bg-card);
-            padding: 40px;
+            background: var(--card-bg);
+            padding: 40px 40px 40px;
             border-radius: var(--card-radius);
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             max-width: 500px;
             width: 100%;
+            position: relative;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            background: transparent;
+            border: none;
+            opacity: 0.5;
+        }
+
+        .nav-btn:hover {
+            color: var(--accent-blue);
+            opacity: 1;
+            transform: translateX(-2px);
         }
 
         h1 {
@@ -70,7 +101,7 @@
         .coffee-wrapper {
             position: relative;
             width: 80px;
-            height: 130px;
+            height: 90px;
             margin: 0 auto 20px;
         }
 
@@ -91,7 +122,7 @@
             left: 50%;
             transform: translateX(-50%);
             width: 50px;
-            height: 60px;
+            height: 40px;
             z-index: 1;
         }
 
@@ -219,6 +250,12 @@
 
 <body>
     <div class="container">
+        <a href="index.html" class="nav-btn" aria-label="Back to Home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+        </a>
         <div class="coffee-wrapper">
             <div class="steam-wrapper">
                 <div class="steam-layer steam-layer-1"></div>
@@ -369,6 +406,9 @@
         // Run on page load
         applyTranslations();
     </script>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "1bd7fc1e40594b0d8b015d5dd6325f42"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 
 </html>
