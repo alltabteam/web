@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support AllTab</title>
+    <style>
+        :root {
+            --bg-app: #f5f7fa;
+            --bg-card: #ffffff;
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --accent-blue: #3182ce;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-radius: 10px;
+            --steam-color: rgba(120, 120, 120, 0.4);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-app: #1c1c1e;
+                --bg-card: #2c2c2e;
+                --text-primary: #f2f2f5;
+                --text-secondary: #aeaeb2;
+                --accent-blue: #0a84ff;
+                --border-color: #38383a;
+                --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                --steam-color: rgba(180, 180, 180, 0.35);
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+
+        .coffee-wrapper {
+            position: relative;
+            width: 80px;
+            height: 130px;
+            margin: 0 auto 20px;
+        }
+
+        .coffee-icon {
+            width: 64px;
+            height: 64px;
+            color: var(--accent-blue);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .steam-wrapper {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 60px;
+            z-index: 1;
+        }
+
+        .steam-layer {
+            position: absolute;
+            bottom: 0;
+            background: radial-gradient(ellipse at center bottom, var(--steam-color) 0%, transparent 65%);
+            filter: blur(5px);
+            border-radius: 50% 50% 40% 40%;
+        }
+
+        .steam-layer-1 {
+            width: 30px;
+            height: 50px;
+            left: 0;
+            animation: wave-1 3.5s infinite ease-in-out;
+        }
+
+        .steam-layer-2 {
+            width: 35px;
+            height: 60px;
+            left: 8px;
+            animation: wave-2 4s infinite ease-in-out 0.5s;
+        }
+
+        .steam-layer-3 {
+            width: 28px;
+            height: 45px;
+            right: 0;
+            animation: wave-3 3.8s infinite ease-in-out 1s;
+        }
+
+        @keyframes wave-1 {
+
+            0%,
+            100% {
+                transform: translateX(0) scaleY(1) skewX(0deg);
+                opacity: 0.9;
+            }
+
+            33% {
+                transform: translateX(-3px) scaleY(1.08) skewX(-5deg);
+                opacity: 0.75;
+            }
+
+            66% {
+                transform: translateX(2px) scaleY(0.95) skewX(3deg);
+                opacity: 0.85;
+            }
+        }
+
+        @keyframes wave-2 {
+
+            0%,
+            100% {
+                transform: translateX(0) scaleY(1) skewX(0deg);
+                opacity: 0.85;
+            }
+
+            25% {
+                transform: translateX(2px) scaleY(1.1) skewX(3deg);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translateX(-2px) scaleY(0.92) skewX(-3deg);
+                opacity: 0.75;
+            }
+
+            75% {
+                transform: translateX(1px) scaleY(1.05) skewX(2deg);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes wave-3 {
+
+            0%,
+            100% {
+                transform: translateX(0) scaleY(1) skewX(0deg);
+                opacity: 0.85;
+            }
+
+            33% {
+                transform: translateX(3px) scaleY(1.05) skewX(4deg);
+                opacity: 0.8;
+            }
+
+            66% {
+                transform: translateX(-2px) scaleY(0.98) skewX(-2deg);
+                opacity: 0.9;
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, filter 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        /* RTL support for Arabic and Urdu */
+        [dir="rtl"] {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="coffee-wrapper">
+            <div class="steam-wrapper">
+                <div class="steam-layer steam-layer-1"></div>
+                <div class="steam-layer steam-layer-2"></div>
+                <div class="steam-layer steam-layer-3"></div>
+            </div>
+
+            <svg class="coffee-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+            </svg>
+        </div>
+
+        <h1 id="title">Support AllTab</h1>
+        <p id="intro">Hi there! We are the team behind AllTab.</p>
+        <p id="cta">If you enjoy using AllTab, consider buying us a coffee to support our work!</p>
+        <a href="#" class="btn" id="btn">Buy us a coffee</a>
+
+        <div class="footer">
+            <p id="thanks">Thank you for your support! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        // All supported languages (from translations.js and translations2.js)
+        const translations = {
+            en: {
+                title: "Support AllTab",
+                intro: "Hi there! We are the team behind AllTab.",
+                cta: "If you enjoy using AllTab, consider buying us a coffee to support our work!",
+                btn: "Buy us a coffee",
+                thanks: "Thank you for your support! ❤️"
+            },
+            es: {
+                title: "Apoya a AllTab",
+                intro: "¡Hola! Somos el equipo detrás de AllTab.",
+                cta: "Si disfrutas usando AllTab, ¡considera invitarnos a un café para apoyar nuestro trabajo!",
+                btn: "Invítanos a un café",
+                thanks: "¡Gracias por tu apoyo! ❤️"
+            },
+            fr: {
+                title: "Soutenez AllTab",
+                intro: "Bonjour ! Nous sommes l'équipe derrière AllTab.",
+                cta: "Si vous aimez utiliser AllTab, offrez-nous un café pour soutenir notre travail !",
+                btn: "Offrez-nous un café",
+                thanks: "Merci pour votre soutien ! ❤️"
+            },
+            pt: {
+                title: "Apoie o AllTab",
+                intro: "Olá! Somos a equipe por trás do AllTab.",
+                cta: "Se você gosta de usar o AllTab, considere nos pagar um café para apoiar nosso trabalho!",
+                btn: "Pague-nos um café",
+                thanks: "Obrigado pelo seu apoio! ❤️"
+            },
+            de: {
+                title: "Unterstütze AllTab",
+                intro: "Hallo! Wir sind das Team hinter AllTab.",
+                cta: "Wenn dir AllTab gefällt, spendiere uns einen Kaffee, um unsere Arbeit zu unterstützen!",
+                btn: "Spendiere uns einen Kaffee",
+                thanks: "Danke für deine Unterstützung! ❤️"
+            },
+            zh: {
+                title: "支持 AllTab",
+                intro: "你好！我们是 AllTab 背后的团队。",
+                cta: "如果你喜欢使用 AllTab，请考虑请我们喝杯咖啡来支持我们的工作！",
+                btn: "请我们喝咖啡",
+                thanks: "感谢您的支持！❤️"
+            },
+            ja: {
+                title: "AllTab をサポート",
+                intro: "こんにちは！私たちは AllTab の開発チームです。",
+                cta: "AllTab をお楽しみいただけていれば、コーヒーをご馳走して私たちの活動を応援してください！",
+                btn: "コーヒーをご馳走する",
+                thanks: "ご支援ありがとうございます！❤️"
+            },
+            ru: {
+                title: "Поддержите AllTab",
+                intro: "Привет! Мы — команда AllTab.",
+                cta: "Если вам нравится AllTab, угостите нас кофе, чтобы поддержать нашу работу!",
+                btn: "Угостить нас кофе",
+                thanks: "Спасибо за вашу поддержку! ❤️"
+            },
+            hi: {
+                title: "AllTab का समर्थन करें",
+                intro: "नमस्ते! हम AllTab के पीछे की टीम हैं।",
+                cta: "यदि आप AllTab का उपयोग करके आनंद लेते हैं, तो हमारे काम का समर्थन करने के लिए हमें एक कॉफी पिलाने पर विचार करें!",
+                btn: "हमें एक कॉफी पिलाएं",
+                thanks: "आपके समर्थन के लिए धन्यवाद! ❤️"
+            },
+            ar: {
+                title: "ادعم AllTab",
+                intro: "مرحباً! نحن الفريق وراء AllTab.",
+                cta: "إذا كنت تستمتع باستخدام AllTab، ففكر في شراء قهوة لنا لدعم عملنا!",
+                btn: "اشترِ لنا قهوة",
+                thanks: "شكراً لدعمكم! ❤️",
+                rtl: true
+            },
+            id: {
+                title: "Dukung AllTab",
+                intro: "Halo! Kami adalah tim di balik AllTab.",
+                cta: "Jika Anda menikmati menggunakan AllTab, pertimbangkan untuk membelikan kami kopi untuk mendukung pekerjaan kami!",
+                btn: "Belikan kami kopi",
+                thanks: "Terima kasih atas dukungan Anda! ❤️"
+            },
+            bn: {
+                title: "AllTab সমর্থন করুন",
+                intro: "হ্যালো! আমরা AllTab এর পেছনের দল।",
+                cta: "আপনি যদি AllTab ব্যবহার করে উপভোগ করেন, আমাদের কাজকে সমর্থন করতে আমাদের একটি কফি কিনে দিন!",
+                btn: "আমাদের একটি কফি কিনে দিন",
+                thanks: "আপনার সমর্থনের জন্য ধন্যবাদ! ❤️"
+            },
+            ur: {
+                title: "AllTab کی حمایت کریں",
+                intro: "ہیلو! ہم AllTab کے پیچھے کی ٹیم ہیں۔",
+                cta: "اگر آپ AllTab استعمال کرنے سے لطف اندوز ہوتے ہیں، تو ہمارے کام کی حمایت کے لیے ہمیں ایک کافی پلائیں!",
+                btn: "ہمیں ایک کافی پلائیں",
+                thanks: "آپ کی حمایت کا شکریہ! ❤️",
+                rtl: true
+            }
+        };
+
+        // Detect user language
+        function detectLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0].toLowerCase();
+            return translations[langCode] ? langCode : 'en';
+        }
+
+        // Apply translations
+        function applyTranslations() {
+            const lang = detectLanguage();
+            const t = translations[lang];
+
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('intro').textContent = t.intro;
+            document.getElementById('cta').textContent = t.cta;
+            document.getElementById('btn').textContent = t.btn;
+            document.getElementById('thanks').textContent = t.thanks;
+
+            // Update HTML lang attribute and direction
+            document.documentElement.lang = lang;
+            if (t.rtl) {
+                document.documentElement.dir = 'rtl';
+            }
+        }
+
+        // Run on page load
+        applyTranslations();
+    </script>
+</body>
+
+</html>
