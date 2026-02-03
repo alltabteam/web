@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support AllTab</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
     <style>
         :root {
             /* Branding & Colors from index.html */
@@ -406,9 +407,17 @@
         // Run on page load
         applyTranslations();
     </script>
-    <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-        data-cf-beacon='{"token": "1bd7fc1e40594b0d8b015d5dd6325f42"}'></script><!-- End Cloudflare Web Analytics -->
+    <!-- Cloudflare Web Analytics (Lazy Load) -->
+    <script>
+        window.addEventListener('load', function () {
+            var script = document.createElement('script');
+            script.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+            script.defer = true;
+            script.setAttribute('data-cf-beacon', '{"token": "1bd7fc1e40594b0d8b015d5dd6325f42"}');
+            document.body.appendChild(script);
+        });
+    </script>
+    <!-- End Cloudflare Web Analytics -->
 </body>
 
 </html>
