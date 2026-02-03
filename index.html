@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About AllTab</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-light: #666666;
+            --border: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg);
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--secondary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-block h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-block ul {
+            list-style: none;
+        }
+
+        .feature-block li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-block li::before {
+            content: "-";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: #f1f8ff;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>AllTab <span class="badge">v1.0.3</span></h1>
+            <p class="tagline">All your tabs, in a single place, under your control.</p>
+        </header>
+
+        <div class="grid">
+            <div class="feature-block">
+                <h3>Smart Tab Management</h3>
+                <ul>
+                    <li><strong>One-Click Save:</strong> Save all tabs in current window or all windows at once.</li>
+                    <li><strong>Flexible Saving:</strong> Save just this tab, tabs to the left, tabs to the right, or
+                        everything except this tab.</li>
+                    <li><strong>The Great Reset:</strong> Click the dashboard logo to save and close all windows
+                        instantly, freeing maximum resources.</li>
+                    <li><strong>Context Menus:</strong> Right-click on any page to access quick save options.</li>
+                    <li><strong>Auto-Send to Dashboard:</strong> Automatically save and close inactive browser tabs
+                        after a configurable timeout.</li>
+                    <li><strong>Stay in Current Window:</strong> Option to remain in your current window after saving
+                        tabs.</li>
+                    <li><strong>Save Browser Tab Group:</strong> Save a Chrome native tab group directly along with its
+                        name and color.</li>
+                    <li><strong>Restore Entire Group:</strong> Open all tabs in a saved group at once with a single
+                        click.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>Visual Organization</h3>
+                <ul>
+                    <li><strong>Automatic Grouping:</strong> Tabs saved together are automatically grouped by session.
+                    </li>
+                    <li><strong>Group Renaming:</strong> Give custom names to your groups for easier identification.
+                    </li>
+                    <li><strong>Drag and Drop:</strong> Reorder tabs and groups with full drag-and-drop support.</li>
+                    <li><strong>Tags:</strong> Assign tags to groups for visual categorization.</li>
+                    <li><strong>Search:</strong> Instantly search across all your saved tabs and group names.</li>
+                    <li><strong>Date Filter:</strong> Filter groups by the date they were created.</li>
+                    <li><strong>Tag Filter:</strong> Show only groups matching a specific tag.</li>
+                    <li><strong>Inter-Group Creation:</strong> Hover between groups and click the + button to insert a
+                        new empty group at that position.</li>
+                    <li><strong>Scroll to Top:</strong> Quick button to return to the top of your tab list.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>Performance and Efficiency</h3>
+                <ul>
+                    <li><strong>RAM Monitor:</strong> Real-time display of System and Chrome memory usage in the popup.
+                    </li>
+                    <li><strong>Tab Hibernation:</strong> Suspend inactive tabs to free memory without closing them.
+                    </li>
+                    <li><strong>Auto-Hibernate:</strong> Set timers (1 min to 2 hours) to automatically hibernate tabs.
+                    </li>
+                    <li><strong>Hibernation Whitelists:</strong> Exclude specific sites (like music players) from
+                        hibernation.</li>
+                    <li><strong>Hibernate from Context Menu:</strong> Hibernate this tab, tabs to the left, tabs to the
+                        right, all except this, or wake all hibernated tabs.</li>
+                    <li><strong>Sleeping Page Controls:</strong> Sleeping tabs can be set to wake on page reload or when
+                        you visit them.</li>
+                    <li><strong>Duplicate Cleanup:</strong> Automatically identify and remove duplicate tabs.</li>
+                    <li><strong>Automatic Tab Cleanup:</strong> Automatically remove old, unused tabs after a set period
+                        (days, weeks, or months).</li>
+                    <li><strong>Cleanup Exclusions:</strong> Whitelist domains to protect them from automatic cleanup.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>Data Safety and Privacy</h3>
+                <ul>
+                    <li><strong>Offline First:</strong> All data stays on your device. No external analytics or
+                        tracking.</li>
+                    <li><strong>Trash Bin:</strong> Deleted items are kept safely for 30 days before permanent removal.
+                    </li>
+                    <li><strong>Undo System:</strong> Accidentally deleted a tab? You have a 20-second window to bring
+                        it back.</li>
+                    <li><strong>Group Locking (Pin):</strong> Lock important groups to protect them from accidental
+                        deletion or cleanup.</li>
+                    <li><strong>Backup (JSON):</strong> Export your entire collection to a JSON file for safekeeping.
+                    </li>
+                    <li><strong>Restore (JSON):</strong> Import a JSON backup with options to merge or replace, handle
+                        duplicates, and select specific groups.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>Import and Export Options</h3>
+                <ul>
+                    <li><strong>Import from JSON:</strong> Restore from a full backup file with drag-and-drop support.
+                    </li>
+                    <li><strong>Import from Text:</strong> Paste a list of URLs to create a new group.</li>
+                    <li><strong>Import from Chrome Bookmarks:</strong> Pull in tabs from your existing Chrome bookmarks.
+                    </li>
+                    <li><strong>Export as JSON:</strong> Full backup for restoration.</li>
+                    <li><strong>Export as HTML:</strong> Generate a styled, shareable HTML file with theme options
+                        (Light, Dark, Ocean, Forest, Sunset, Lavender, Midnight).</li>
+                    <li><strong>Export as HTML Lite:</strong> A minimal, lightweight HTML export.</li>
+                    <li><strong>Export as Text (URLs):</strong> Plain text list of all your saved URLs.</li>
+                    <li><strong>Export as CSV:</strong> Spreadsheet-compatible format for external tools.</li>
+                    <li><strong>Print / PDF:</strong> Print your tab list or save it as a PDF.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>View Modes and Customization</h3>
+                <ul>
+                    <li><strong>Standard Dashboard:</strong> The classic full-page view for managing everything.</li>
+                    <li><strong>Sidebar Mode:</strong> A compact side-panel view for quick access while you browse.</li>
+                    <li><strong>Wide Mode:</strong> An optimized layout for large monitors.</li>
+                    <li><strong>Multi-User Profiles:</strong> Create separate profiles to keep tab collections distinct.
+                    </li>
+                    <li><strong>Theme Toggle:</strong> Switch between light and dark mode.</li>
+                    <li><strong>URL Display Options:</strong> Choose to show full URL, domain only, shortened, or
+                        hidden.</li>
+                    <li><strong>Pagination:</strong> Configure how many tabs to display per page.</li>
+                    <li><strong>13 Languages:</strong> English, Spanish, French, Portuguese, German, Chinese, Japanese,
+                        Russian, Hindi, Arabic, Bengali, Urdu, Indonesian.</li>
+                    <li><strong>Open on Startup:</strong> Optionally open AllTab automatically when Chrome starts.</li>
+                    <li><strong>One-Click Save:</strong> Configure the extension icon to save immediately on click.</li>
+                    <li><strong>Delete on Open:</strong> Optionally remove a tab from the list when you restore it.</li>
+                    <li><strong>Switch to Tab:</strong> Optionally focus a restored tab immediately.</li>
+                    <li><strong>Open Sleeping:</strong> Optionally open restored tabs in a hibernated state to save
+                        memory.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>Keyboard Shortcuts</h3>
+            <p>Speed up your workflow with these shortcuts:</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                <span><code>Alt+Shift+1</code> Open Dashboard</span>
+                <span><code>Alt+Shift+S</code> Save Current Window</span>
+                <span><code>Ctrl+Shift+2</code> Save Active Tab</span>
+                <span><code>Ctrl+Shift+Z</code> Hibernate Active Tab</span>
+            </div>
+        </div>
+
+        <div class="highlight-box" style="margin-top: 20px;">
+            <h3>Tools</h3>
+            <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                <li><strong>Organizer (Drag and Drop):</strong> A dedicated mode for reordering your groups and tabs.
+                </li>
+                <li><strong>Delete Duplicates:</strong> Scan and remove duplicate tabs across all groups.</li>
+                <li><strong>Cleanup Tabs:</strong> Configure automatic removal of old tabs.</li>
+                <li><strong>Trash Bin:</strong> View and restore recently deleted items.</li>
+                <li><strong>Help and Tips:</strong> Built-in guidance with detailed instructions on how to use each
+                    feature.</li>
+                <li><strong>About Section:</strong> Information about the extension, version, and credits.</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>AllTab is designed to be the ultimate home for your browsing sessions.</p>
+        </div>
+    </div>
+</body>
+
+</html>
